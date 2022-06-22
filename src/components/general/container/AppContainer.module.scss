@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    &.full {
+        max-width: 1440px;
+    }
+}
+
+@include max767 {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

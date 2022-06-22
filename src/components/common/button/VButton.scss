@@ -1,0 +1,128 @@
+.VButton {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-button);
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    overflow: visible;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+    -moz-user-focus: ignore;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+    &-Text {
+        position: relative;
+        resize: none;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    &-Icon {
+        position: relative;
+        pointer-events: none;
+        flex-shrink: 0;
+        margin-right: 8px;
+
+        svg {
+            display: flex;
+        }
+    }
+
+    &-Spin {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.VButton.VButton_max-width {
+    width: 100%;
+}
+
+// views
+.VButton.VButton_action {
+    color: var(--button-action-typo-color-base);
+    background: var(--button-action-fill-color-base);
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        background: var(--button-action-fill-color-inside);
+    }
+
+    &.VButton_large::before {
+        border-radius: 13px;
+    }
+
+    // @include hover {
+    //     &:hover {
+    //         background-color: var(--button-action-fill-color-hovered);
+    //         border: 1px solid var(--button-action-border-color-hovered);
+    //     }
+    // }
+
+    // &.VButton_small {
+    //     box-shadow: 0 1px 0 0 var(--button-action-border-color-base);
+    // }
+
+    // &.VButton_loading {
+    //     color: var(--button-action-fill-color-loading);
+    //     background-color: var(--button-action-fill-color-loading);
+    //     border-color: var(--button-action-border-color-loading);
+    // }
+
+    // &.VButton_disabled {
+    //     color: var(--button-action-typo-color-disabled);
+    //     background-color: var(--button-action-fill-color-disabled);
+    //     border-color: var(--button-action-border-color-disabled);
+    // }
+}
+
+// sizes
+.VButton.VButton_large {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.25;
+    text-transform: uppercase;
+    height: 54px;
+    border-radius: 13px;
+}
+
+.VButton_loading {
+    pointer-events: none;
+    user-select: none;
+
+    .VButton-Icon,
+    .VButton-Text {
+        visibility: hidden;
+    }
+}
+
+@include max1200 {
+    .VButton.VButton_large {
+        font-size: 20px;
+    }
+}
+
+@include max767 {
+    .VButton.VButton_large {
+        height: 48px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

@@ -1,0 +1,90 @@
+.table {
+    display: flex;
+    flex-flow: column;
+}
+
+.head {
+    display: grid;
+    grid-template-columns: 17% 24% 22% 95px 1fr;
+    gap: 15px;
+    padding: 0 30px;
+    margin-bottom: 30px;
+}
+
+.body {
+    position: relative;
+    
+    &.loading {
+        min-height: 400px;
+    }
+}
+
+.spin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.col {
+    font-family: var(--font-family-text);
+    color: var(--color-typo-ghost);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.date {
+        text-align: right;
+    }
+}
+
+@include max1400 {
+    .head {
+        grid-template-columns: 15% 24% 22% 95px 1fr;
+    }
+}
+
+@include max1200 {
+    .head {
+        grid-template-columns: 18% 1fr 24% 95px 12%;
+    }
+}
+
+@include max1000 {
+    .head {
+        grid-template-columns: 20% 1fr 20%;
+    }
+
+    .col {
+        &.wallet,
+        &.bet {
+            display: none;
+        }
+
+        &.amount {
+            text-align: center;
+        }
+    }
+}
+
+@include max767 {
+    .head {
+        padding: 0;
+    }
+
+    .col {
+        font-size: 14px;
+    }
+
+    .body {
+        &.loading {
+            min-height: 320px;
+        }
+    }
+}
+
+@include max500 {
+    .head {
+        grid-template-columns: 30% 1fr 30%;
+    }
+}

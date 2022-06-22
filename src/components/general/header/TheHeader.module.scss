@@ -1,0 +1,136 @@
+.header {
+    position: relative;
+    background-color: transparent;
+    padding: 20px 0;
+    margin-bottom: 80px;
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: var(--color-typo-base);
+    text-decoration: none;
+    user-select: text;
+    cursor: pointer;
+    margin-right: 30px;
+
+    svg {
+        display: flex;
+    }
+
+    &Text {
+        font-family: var(--font-family-title);
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        margin-left: 6px;
+    }
+}
+
+.menu {
+    display: flex;
+    align-items: stretch;
+    height: 58px;
+
+    &Link {
+        display: flex;
+        align-items: center;
+        color: var(--color-typo-base);
+        font-family: var(--font-family-text);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 23px;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        text-decoration: none;
+        user-select: text;
+        cursor: pointer;
+        padding: 0 30px;
+
+        @include hover {
+            &:hover {
+                color: var(--color-primary);
+            }
+        }
+
+        &.active {
+            color: var(--color-primary);
+        }
+    }
+}
+
+.right {
+    display: flex;
+    align-items: center;
+}
+
+.menuButton {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background: transparent;
+    color: currentcolor;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    margin-left: 12px;
+}
+
+@include max1400 {
+    .menu {
+        &Link {
+            font-size: 16px;
+            line-height: 21px;
+            padding: 0 25px;
+        }
+    }
+}
+
+@include max1200 {
+    .menu {
+        display: none;
+    }
+
+    .menuButton {
+        display: flex;
+    }
+}
+
+@include max767 {
+    .header {
+        margin-bottom: 16px;
+    }
+
+    .logo {
+        margin-right: 0;
+
+        &Text {
+            display: none;
+        }
+    }
+}
+
+@include max360 {
+    .menuButton {
+        margin-left: 6px;
+    }
+}

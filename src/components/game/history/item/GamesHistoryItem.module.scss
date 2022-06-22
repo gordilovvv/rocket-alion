@@ -1,0 +1,181 @@
+.game {
+    display: grid;
+    grid-template-columns: 17% 24% 22% 95px 1fr;
+    gap: 15px;
+    align-items: baseline;
+    padding: 28px 30px;
+    font-family: var(--font-family-text);
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.01em;
+    background-color: var(--color-essential);
+    border: 1px solid var(--color-project);
+    border-radius: 16px;
+
+    & + .game {
+        margin-top: 16px;
+    }
+}
+
+.id,
+.wallet,
+.amount,
+.bet,
+.date,
+.time {
+    white-space: nowrap;
+}
+
+.id {
+    display: flex;
+
+    &Link {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        color: var(--color-typo-base);
+        background-color: transparent;
+        padding: 5px 8px;
+        border-radius: 8px;
+        user-select: text;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.1s;
+
+        @include hover {
+            &:hover {
+                background-color: var(--color-soft);
+            }
+        }
+    }
+
+    &Icon {
+        display: flex;
+        color: var(--color-project);
+        margin-left: 5px;
+    }
+}
+
+.wallet {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.amount {
+    display: flex;
+
+    &Content {
+        position: relative;
+        padding-left: 40px;
+    }
+
+    &Chain {
+        position: absolute;
+        top: -3px;
+        left: 0;
+    }
+
+    &Text {
+        display: inline;
+        font-weight: 500;
+        color: var(--color-primary);
+    }
+}
+
+.date,
+.time {
+    text-align: right;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.time {
+    display: none;
+}
+
+@include max1400 {
+    .game {
+        grid-template-columns: 15% 24% 22% 95px 1fr;
+    }
+}
+
+@include max1200 {
+    .game {
+        grid-template-columns: 18% 1fr 24% 95px 12%;
+    }
+
+    .date {
+        display: none;
+    }
+
+    .time {
+        display: block;
+    }
+}
+
+@include max1000 {
+    .game {
+        grid-template-columns: 20% 1fr 20%;
+    }
+
+    .amount {
+        justify-content: center;
+    }
+
+    .wallet,
+    .bet {
+        display: none;
+    }
+}
+
+@include max767 {
+    .game {
+        padding: 0 0 20px 0;
+        border: 0;
+        border-bottom: 1px solid var(--color-soft);
+        border-radius: 0;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+
+        & + .game {
+            margin-top: 30px;
+        }
+    }
+
+    .id {
+        &Link {
+            color: var(--color-typo-soft);
+            font-size: 14px;
+            padding: 0;
+        }
+    }
+
+    .amount {
+        &Content {
+            padding-left: 26px;
+        }
+
+        &Chain {
+            top: 50%;
+            width: 20px !important;
+            height: 20px !important;
+            transform: translate(0, -50%);
+        }
+
+        &Text {
+            font-size: 14px;
+        }
+    }
+
+    .time {
+        font-size: 14px;
+    }
+}
+
+@include max500 {
+    .game {
+        grid-template-columns: 30% 1fr 30%;
+    }
+}

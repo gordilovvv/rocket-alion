@@ -1,0 +1,56 @@
+.rooms {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    margin-bottom: 120px;
+}
+
+.title {
+    font-family: var(--font-family-title);
+    font-size: var(--title-font-size);
+    font-weight: var(--title-font-weight);
+    line-height: var(--title-line-height);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+@include max1200 {
+    .rooms {
+        gap: 15px;
+    }
+}
+
+@include max1000 {
+    .rooms {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px;
+    }
+}
+
+@include max767 {
+    .rooms {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 80px;
+
+        & > div {
+            width: 380px;
+            margin: 0 auto;
+        }
+    }
+
+    .title {
+        margin-bottom: 60px;
+    }
+}
+
+@include max500 {
+    .rooms {
+        gap: 30px;
+        
+        & > div {
+            width: 100%;
+        }
+    }
+}

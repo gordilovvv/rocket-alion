@@ -1,0 +1,16 @@
+.decorations {
+    --font-family-title: 'ClashDisplay';
+    --font-family-button: 'ClashDisplay';
+    --font-family-text: 'IBMPlexMono';
+
+    --title-font-size: 32px;
+    --title-font-weight: 600;
+    --title-line-height: 42px;
+}
+
+@include max767 {
+    .decorations {
+        --title-font-size: 30px;
+        --title-line-height: 37px;
+    }
+}

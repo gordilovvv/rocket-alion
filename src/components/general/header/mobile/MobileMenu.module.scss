@@ -1,0 +1,149 @@
+// animation
+.menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 40;
+    will-change: transform;
+}
+
+.box {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-essential);
+    overflow: hidden;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px 60px 30px;
+    flex: 1;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: rgba(116, 73, 240, 0.4);
+        border-radius: 2px;
+    }
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+    margin-bottom: 80px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: var(--color-typo-base);
+    text-decoration: none;
+    user-select: text;
+    cursor: pointer;
+    margin-right: 30px;
+
+    svg {
+        display: flex;
+    }
+
+    &Text {
+        font-family: var(--font-family-title);
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        margin-left: 6px;
+    }
+}
+
+
+.close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    background: transparent;
+    color: currentcolor;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.body {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 120px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-typo-base);
+    font-family: var(--font-family-text);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    text-transform: uppercase;
+    text-decoration: none;
+    user-select: text;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    & + .link {
+        margin-top: 40px;
+    }
+
+    &.active {
+        color: var(--color-primary);
+    }
+}
+
+.footer {
+    margin-top: auto;
+}
+
+@include max767 {
+    .head {
+        height: auto;
+    }
+    
+    .content {
+        padding: 20px 16px 60px 16px;
+    }
+
+    .logo {
+        &Text {
+            font-size: 22px;
+            margin-left: 8px;
+        }
+    }
+}
