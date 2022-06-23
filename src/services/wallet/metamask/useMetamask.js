@@ -42,15 +42,6 @@ const state = reactive({
 export function useMetamask() {
     let ethereum = window.ethereum;
     let web3;
-    // const web3 = new Web3(ethereum);
-
-    ethereum.on('chainChanged', chainId => {
-        if (chainId === BSC_CHAIN.chainId)
-            return;
-
-        // TODO: app error
-        console.error("App network (BNB Chain) doesn't match to network selected in wallet (network with id: 42220).");
-    });
 
     const addChain = () => ethereum.request({
         method: 'wallet_addEthereumChain',
@@ -119,6 +110,16 @@ export function useMetamask() {
         handleWeb3();
 
         state.isSupported = ethereum !== undefined;
+
+        if (state.isSupported) {
+            ethereum.on('chainChanged', chainId => {
+                if (chainId === BSC_CHAIN.chainId)
+                    return;
+        
+                // TODO: app error
+                console.error("App network (BNB Chain) doesn't match to network selected in wallet (network with id: 42220).");
+            });
+        }
         
         if (!state.isSupported || state.address)
             return;
