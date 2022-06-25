@@ -8,6 +8,7 @@
     --color-stroke: #5C3E89;
     --color-binance: #F3992F;
     --color-soft: #2A2545;
+    --color-scroll: rgba(116, 73, 240, 0.4);
 
     --button-action-fill-color-base: linear-gradient(180deg, #A367FF 0%, #B381FF 100%);;
     --button-action-fill-color-inside: linear-gradient(176.9deg, #663FA3 2.57%, rgba(163, 103, 255, 0) 81.63%);
@@ -26,4 +27,17 @@
     --color-typo-base: #FFFFFF;
     --color-typo-ghost: #6B6879;
     --color-typo-soft: #6E6796;
+
+    --color-wallet-button-metamask-fill-base: rgba(246, 133, 27, 0.1);
+    --color-wallet-button-metamask-fill-hovered: rgba(246, 133, 27, 0.2);
+    --color-wallet-button-metamask-stroke-base: #F6851B;
+    --color-wallet-button-metamask-stroke-hovered: #F6851B;
+    --color-wallet-button-wallet-connect-fill-base: rgba(163, 110, 246, 0.1);
+    --color-wallet-button-wallet-connect-fill-hovered: rgba(163, 110, 246, 0.2);
+    --color-wallet-button-wallet-connect-stroke-base: #3B99FC;
+    --color-wallet-button-wallet-connect-stroke-hovered: #3B99FC;
+
+    --color-popup-box-fill: #08031F;
+    --color-popup-box-stroke: #472F6B;
+    --color-popup-overlay-fill: linear-gradient(180deg, rgba(196, 176, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%);
 }

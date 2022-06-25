@@ -1,0 +1,93 @@
+.wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    z-index: 900;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    will-change: opacity;
+    pointer-events: auto;
+    background: var(--color-popup-overlay-fill);
+    backdrop-filter: blur(80px);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.content {
+    pointer-events: auto;
+}
+
+.box {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    background-color: var(--color-popup-box-fill);
+    border: 1px solid var(--color-popup-box-stroke);
+
+    &Content {
+        flex: 1;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+
+        &::-webkit-scrollbar {
+            width: 3px;
+        }
+    
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: var(--color-scroll);
+            border-radius: 2px;
+        }
+    }
+}
+
+@include min768 {
+    .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .box {
+        width: 490px;
+        max-height: calc(100vh - 10px);
+        padding: 26px 30px 30px 30px;
+        border-radius: 30px;
+        will-change: transform, opacity;
+    }
+}
+
+@include max767 {
+    // TODO
+    // 1. Перенести из адаптив попапа из crypto
+    // 2. Завершить адаптив
+    .content {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        max-height: calc(100% - 30px);
+    }
+
+    .box {
+        width: 100%;
+        padding: 26px 16px;
+        border-radius: 20px 20px 0 0;
+    }
+}
