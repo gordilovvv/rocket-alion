@@ -1,4 +1,5 @@
 import { useWalletState } from './useState';
+import { openWalletConnectionPopup } from './popup/actions'; 
 
 export function useWallet() {
     const { web3, address, balance, walletId, isConnected } = useWalletState();
@@ -8,6 +9,7 @@ export function useWallet() {
         walletId,
         address,
         balance,
-        isConnected
+        isConnected,
+        openWalletConnectionPopup
     };
 }

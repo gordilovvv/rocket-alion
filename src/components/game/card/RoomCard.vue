@@ -2,7 +2,7 @@
 import { computed, useCssModule } from 'vue';
 import VButton from '@/components/common/button/VButton.vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
-import { useMetamask } from '@/services/wallet/metamask/useMetamask';
+import { useWallet } from '@/services/web3/wallet/useWallet';
 import { formatCurrency } from '@/utils/currency';
 
 const props = defineProps({
@@ -46,7 +46,8 @@ const rocketSrcset = computed(() => {
     return `/images/rooms/${ props.id }.png 1x, /images/rooms/${ props.id }@2x.png 2x`;
 })
 
-const { isConnected, connectWallet } = useMetamask();
+// TODO: check this. Maybe we dont need to call open popup func
+const { isConnected, openWalletConnectionPopup } = useWallet();
 
 const buttonText = computed(() => {
     return isConnected.value
@@ -58,7 +59,7 @@ const play = () => {
     if (isConnected.value) {
         console.log('play', props.id);
     } else {
-        connectWallet();
+        openWalletConnectionPopup();
     }
 }
 </script>

@@ -19,6 +19,7 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url)),
             '@icons': fileURLToPath(new URL('./src/assets/icons', import.meta.url)),
             web3: 'web3/dist/web3.min.js',
+            '@walletconnect/web3-provider': '@walletconnect/web3-provider/dist/umd/index.min.js'
         }
     },
     css: {

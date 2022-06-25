@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
 import { timestampToDate, timestampToTime } from '@/utils/date'
-import { shortAddress } from '@/utils/address';
+import { ellipseAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/currency';
 import ChainIcon from '@/components/general/chain/ChainIcon.vue';
 
@@ -38,7 +38,7 @@ const checkUrl = computed(() => {
 });
 
 const shortWallet = computed(() => {
-    return shortAddress(props.wallet);
+    return ellipseAddress(props.wallet);
 });
 
 const gameDate = computed(() => {

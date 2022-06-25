@@ -1,16 +1,17 @@
 <script setup>
 import ChainIcon from '@/components/general/chain/ChainIcon.vue'
 import VIcon from '@/components/common/icon/VIcon.vue'
-import { useMetamask } from '@/services/wallet/metamask/useMetamask'
-import { shortAddress } from '@/utils/address'
+import { ellipseAddress } from '@/utils/address'
 import { formatCurrency } from '@/utils/currency'
+import { useWallet } from '@/services/web3/wallet/useWallet'
+import { openWalletConnectionPopup } from '@/services/web3/wallet/popup/actions'
 
-const { address, balance, isSupported, connectWallet } = useMetamask();
+const { address, balance, isConnected } = useWallet();
 </script>
 
 <template>
     <div
-        v-if="address"
+        v-if="isConnected"
         :class="styles.wallet"
     >
         <ChainIcon :class="styles.walletChain" />
@@ -20,14 +21,14 @@ const { address, balance, isSupported, connectWallet } = useMetamask();
         </div>
 
         <div :class="styles.walletAddress">
-            {{ shortAddress(address) }}
+            {{ ellipseAddress(address) }}
         </div>
     </div>
 
     <button
-        v-else-if="isSupported"
+        v-else
         :class="styles.button"
-        @click="connectWallet"
+        @click="openWalletConnectionPopup"
     >
         <span :class="styles.buttonIcon">
             <VIcon name="wallet" />
@@ -37,22 +38,6 @@ const { address, balance, isSupported, connectWallet } = useMetamask();
             Connect wallet
         </span>
     </button>
-
-    <a
-        v-else
-        href="https://metamask.io/"
-        rel="nofollow noreferrer"
-        target="_blank"
-        :class="styles.button"
-    >
-        <span :class="styles.buttonIcon">
-            <VIcon name="wallet" />
-        </span>
-
-        <span :class="styles.buttonText">
-            Install Metamask
-        </span>
-    </a>
 </template>
 
 <style lang="scss" module="styles">

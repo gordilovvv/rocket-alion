@@ -1,7 +1,3 @@
-export function shortAddress(address) {
-    if (address.length < 21) {
-        return address;
-    } else {
-        return `${ address.substr(0, 8) }...${ address.substr(-5) }`;
-    }
+export function ellipseAddress(address, width = 7) {
+    return `${ address.slice(0, width) }...${ address.slice(-width) }`;
 }

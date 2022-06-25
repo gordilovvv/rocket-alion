@@ -1,6 +1,7 @@
 <script setup>
 import DefaultLayout from '@/layouts/default/DefaultLayout.vue';
 import { useCssModule } from 'vue';
+import { walletAutoConnect } from './services/web3/wallet/actions/autoConnect';
 
 const vars = useCssModule('vars');
 
@@ -8,6 +9,8 @@ document.body.classList.add(
     vars.colors,
     vars.decorations
 );
+
+walletAutoConnect();
 </script>
 
 <template>

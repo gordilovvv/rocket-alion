@@ -42,7 +42,7 @@
     }
     
     &::-webkit-scrollbar-thumb {
-        background: rgba(116, 73, 240, 0.4);
+        background: var(--color-scroll);
         border-radius: 2px;
     }
 }
