@@ -78,10 +78,6 @@ const openMenu = () => {
                         {{ text }}
                     </RouterLink>
                 </template>
-
-                <template #wallet>
-                    <WalletButton />
-                </template>
             </MobileMenu>
 
         </AppContainer>
