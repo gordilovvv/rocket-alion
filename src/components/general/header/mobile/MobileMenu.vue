@@ -54,7 +54,11 @@ onUnmounted(() => enableBodyScroll(menu));
                                 to="/"
                                 :class="styles.logo"
                             >
-                                <VIcon name="logo" />
+                                <img
+                                    src="/images/logo.png"
+                                    alt=""
+                                    :class="styles.logoImage"
+                                />
 
                                 <span :class="styles.logoText">
                                     Rocket Alion
@@ -76,12 +80,7 @@ onUnmounted(() => enableBodyScroll(menu));
                                 :active-class="styles.active"
                             />
                         </div>
-
-                        <div :class="styles.footer">
-
-                            <slot name="wallet" />
-
-                        </div>
+                        
                     </div>
                 </div>
 

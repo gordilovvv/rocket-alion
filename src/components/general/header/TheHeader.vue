@@ -31,7 +31,11 @@ const openMenu = () => {
                     to="/"
                     :class="styles.logo"
                 >
-                    <VIcon name="logo" />
+                    <img
+                        src="/images/logo.png"
+                        alt=""
+                        :class="styles.logoImage"
+                    />
 
                     <span :class="styles.logoText">
                         Rocket Alion

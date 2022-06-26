@@ -25,8 +25,9 @@
     cursor: pointer;
     margin-right: 30px;
 
-    svg {
-        display: flex;
+    &Image {
+        width: 56px;
+        height: 56px;
     }
 
     &Text {

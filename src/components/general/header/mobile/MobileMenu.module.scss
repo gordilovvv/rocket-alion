@@ -64,8 +64,9 @@
     cursor: pointer;
     margin-right: 30px;
 
-    svg {
-        display: flex;
+    &Image {
+        width: 56px;
+        height: 56px;
     }
 
     &Text {
@@ -100,7 +101,7 @@
 .body {
     display: flex;
     flex-flow: column;
-    margin-bottom: 120px;
+    margin-bottom: 60px;
 }
 
 .link {
@@ -125,10 +126,6 @@
     &.active {
         color: var(--color-primary);
     }
-}
-
-.footer {
-    margin-top: auto;
 }
 
 @include max767 {
