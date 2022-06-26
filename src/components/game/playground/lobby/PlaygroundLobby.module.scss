@@ -1,0 +1,151 @@
+.lobby {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    &Main,
+    &Head {
+        width: 386px;
+    }
+
+    &Head {
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 30px;
+    }
+    
+    &Main {
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 60px;
+    }
+
+    &Side {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        width: 575px;
+        max-width: 100%;
+    }
+}
+
+.title {
+    font-family: var(--font-family-text);
+    color: var(--color-success);
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 29px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 17px;
+}
+
+.description {
+    font-family: var(--font-family-title);
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 42px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #FFFFFF 67.95%, rgba(0, 0, 0, 0) 123.08%);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    margin-bottom: 30px;
+}
+
+.progress {
+    margin: 0;
+
+    &Count {
+        font-family: var(--font-family-text);
+        color: var(--color-typo-base);
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 29px;
+        text-align: center;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    &Bar {
+        position: relative;
+        width: 100%;
+        height: 8px;
+        background-color: var(--color-playground-bar-fill);
+        border-radius: 26px;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
+
+    &Line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 8px;
+        background-color: var(--color-project);
+        border-radius: 26px;
+        transition: width 0.15s;
+    }
+}
+
+.players {
+    display: flex;
+    flex-flow: column;
+}
+
+@include max767 {
+    .lobby {
+        justify-content: space-between;
+        padding: 30px 16px;
+
+        &Head {
+            margin-bottom: 60px;
+        }
+
+        &Head,
+        &Main,
+        &Side {
+            width: 100%;
+        }
+
+        &Side {
+            gap: 8px;
+        }
+    }
+
+    .title {
+        font-size: 18px;
+        line-height: 23px;
+        margin-bottom: 8px;
+    }
+
+    .description {
+        font-size: 30px;
+        line-height: 37px;
+    }
+
+    .progress {
+        &Count {
+            font-size: 18px;
+            line-height: 23px;
+            margin-bottom: 12px;
+        }
+    }
+}
+
+@include max360 {
+    .lobby {
+        &Side {
+            gap: 6px;
+        }
+    }
+}

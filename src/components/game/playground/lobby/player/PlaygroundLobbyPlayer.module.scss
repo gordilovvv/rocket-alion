@@ -1,0 +1,72 @@
+.player {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    background-color: var(--color-playground-player-fill-base);
+    border: 1px solid var(--color-playground-player-stroke);
+    border-radius: 16px;
+    padding: 0 20px;
+    user-select: none;
+
+    & + .player {
+        margin-top: 16px;
+    }
+
+    &.active {
+        background-color: var(--color-playground-player-fill-active);
+    }
+}
+
+.spin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    --spin-color: var(--color-project) !important;
+}
+
+.text, .bet {
+    font-family: var(--font-family-text);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.text {
+    font-weight: 400;
+}
+
+.bet {
+    font-weight: 500;
+}
+
+.player.active {
+    .text {
+        background-image: linear-gradient(180deg, #F2B563 56.41%, #FF522C 107.69%);
+        font-weight: 500;
+        background-size: 100%;
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+    }
+}
+
+@include max767 {
+    .player {
+        height: 50px;
+        padding: 0 16px;
+    }
+
+    .text,
+    .bet {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
