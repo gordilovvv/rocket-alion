@@ -1,22 +1,33 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import AppContainer from '@/components/general/container/AppContainer.vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
 import WalletButton from '@/components/general/wallet/WalletButton.vue';
 import MobileMenu from './mobile/MobileMenu.vue';
+import { useWallet } from '@/services/web3/wallet/useWallet';
 
-const MENU_LINKS = [
-    { text: 'Rooms', url: '/' },
-    { text: 'History', url: '/history' },
-    { text: 'How to play ?', url: '/guide' },
-    { text: 'F.A.Q.', url: '/faq' }
-]
+const { isConnected } = useWallet();
+
+const menuLinks = computed(() => {
+    return isConnected.value
+        ? [
+            { text: 'Rooms', url: '/' },
+            { text: 'History', url: '/history' },
+            { text: 'How to play ?', url: '/guide' },
+            { text: 'F.A.Q.', url: '/faq' }
+        ]
+        : [
+            { text: 'Rooms', url: '/' },
+            { text: 'How to play ?', url: '/guide' },
+            { text: 'F.A.Q.', url: '/faq' }
+        ];
+});
 
 const isMenuOpened = ref(false);
 
 const openMenu = () => {
     isMenuOpened.value = true;
-}
+};
 </script>
 
 <template>
@@ -44,7 +55,7 @@ const openMenu = () => {
 
                 <div :class="styles.menu">
                     <RouterLink
-                        v-for="({ text, url }) in MENU_LINKS"
+                        v-for="({ text, url }) in menuLinks"
                         :key="url"
                         :to="url"
                         :class="styles.menuLink"
@@ -69,7 +80,7 @@ const openMenu = () => {
             <MobileMenu v-model:visible="isMenuOpened">
                 <template #menu="{ linkClass, activeClass }">
                     <RouterLink
-                        v-for="({ text, url }) in MENU_LINKS"
+                        v-for="({ text, url }) in menuLinks"
                         :key="url"
                         :to="url"
                         :class="linkClass"
