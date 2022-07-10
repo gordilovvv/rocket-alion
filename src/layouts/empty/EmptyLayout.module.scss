@@ -1,0 +1,30 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.header {
+    margin-bottom: 80px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-bottom: 140px;
+}
+
+@include max767 {
+    .content {
+        padding-bottom: 80px;
+    }
+
+    .wrapper {
+        &::after {
+            display: none;
+        }
+    }
+}
