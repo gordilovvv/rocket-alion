@@ -25,7 +25,7 @@ const STEPS = [
 ];
 
 const getImageSrcSet = step => {
-    return `/images/guide/${ step }.png 1x, /images/guide/${ step }@2x.png 2x`;
+    return `/images/guide/${ step }.png 1x, /images/guide/${ step }@2x.png 2x, /images/guide/${ step }@3x.png 3x`;
 };
 </script>
 
@@ -42,7 +42,7 @@ const getImageSrcSet = step => {
         <div
             v-for="({ num, key, title, description, inverse }) in STEPS"
             :key="key"
-            :class="[styles.card, styles[key], {
+            :class="[styles.card, {
                 [styles.inverse]: inverse
             }]"
         >
@@ -58,7 +58,7 @@ const getImageSrcSet = step => {
             <div :class="styles.cardWrap">
                 <div :class="styles.cardContent">
                     <div :class="styles.cardTitle">
-                        <span>{{ num }}</span> {{ title }}
+                        <span>{{ num }}.</span> {{ title }}
                     </div>
 
                     <div :class="styles.cardDescription">
