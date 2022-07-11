@@ -1,7 +1,7 @@
 <script setup>
-import { computed, useSlots } from 'vue'
-import { useRouter } from 'vue-router'
-import VSpin from '@/components/common/spin/VSpin.vue'
+import { computed, useSlots } from 'vue';
+import VSpin from '@/components/common/spin/VSpin.vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
     type: {
@@ -85,7 +85,7 @@ const onClick = event => {
         return router.push(to);
 
     emit('click', event);
-}
+};
 </script>
 
 <template>

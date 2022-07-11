@@ -53,7 +53,7 @@
 // views
 .VButton.VButton_action {
     color: var(--button-action-typo-color-base);
-    background: var(--button-action-fill-color-base);
+    background: var(--button-action-fill-outside-color-base);
 
     &::before {
         content: "";
@@ -62,35 +62,34 @@
         left: 3px;
         right: 3px;
         bottom: 3px;
-        background: var(--button-action-fill-color-inside);
+        background: var(--button-action-fill-inside-color-base);
     }
 
     &.VButton_large::before {
         border-radius: 13px;
     }
 
-    // @include hover {
-    //     &:hover {
-    //         background-color: var(--button-action-fill-color-hovered);
-    //         border: 1px solid var(--button-action-border-color-hovered);
-    //     }
-    // }
+    .VButton-Spin {
+        --spin-color: var(--button-action-typo-color-base) !important;
+    }
 
-    // &.VButton_small {
-    //     box-shadow: 0 1px 0 0 var(--button-action-border-color-base);
-    // }
+    &.VButton_loading {
+        color: var(--button-action-typo-color-loading);
+        background: var(--button-action-fill-outside-color-loading);
 
-    // &.VButton_loading {
-    //     color: var(--button-action-fill-color-loading);
-    //     background-color: var(--button-action-fill-color-loading);
-    //     border-color: var(--button-action-border-color-loading);
-    // }
+        &::before {
+            background: var(--button-action-fill-inside-color-loading);
+        }
+    }
 
-    // &.VButton_disabled {
-    //     color: var(--button-action-typo-color-disabled);
-    //     background-color: var(--button-action-fill-color-disabled);
-    //     border-color: var(--button-action-border-color-disabled);
-    // }
+    &.VButton_disabled {
+        color: var(--button-action-typo-color-disabled);
+        background: var(--button-action-fill-outside-color-disabled);
+
+        &::before {
+            background: var(--button-action-fill-inside-color-disabled);
+        }
+    }
 }
 
 // sizes
@@ -111,6 +110,11 @@
     .VButton-Text {
         visibility: hidden;
     }
+}
+
+.VButton_disabled {
+    pointer-events: none;
+    user-select: none;
 }
 
 @include max1200 {
