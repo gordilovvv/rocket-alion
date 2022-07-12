@@ -1,8 +1,19 @@
+.loading,
+.statistic {
+    margin-bottom: 120px;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+}
+
 .statistic {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    margin-bottom: 120px;
 }
 
 .title {
@@ -24,12 +35,17 @@
 }
 
 @include max1000 {
+    .loading {
+        height: 300px;
+    }
+
     .statistic {
         grid-template-columns: 1fr;
     }
 }
 
 @include max767 {
+    .loading,
     .statistic {
         margin-bottom: 80px;
     }

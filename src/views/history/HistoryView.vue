@@ -1,28 +1,41 @@
 <script setup>
-import AppContainer from '@/components/general/container/AppContainer.vue';
-import StatisticCard from '@/components/statistic/card/StatisticCard.vue';
-import { formatCurrency } from '@/utils/currency';
 import { computed } from '@vue/reactivity';
+import AppContainer from '@/components/general/container/AppContainer.vue';
 import GamesHistory from '@/components/game/history/GamesHistory.vue';
+import StatisticCard from '@/components/statistic/card/StatisticCard.vue';
+import VSpin from '@/components/common/spin/VSpin.vue';
+import { usePlayerStatistic } from '@/api/realtime/repositories/statistic';
+import { formatCurrency } from '@/utils/currency';
 
 // TODO:
-// 1. real data
 // 2. load more button
 // 3. status field in game history
+const {
+    stats,
+    gamesHistory,
+    isLoadingStats,
+    isLoadingHistory
+} = usePlayerStatistic();
+
 const totalWon = computed(() => {
-    return formatCurrency(3.1255232215512);
+    return formatCurrency(stats.totalWon);
 });
-
-const gamesWon = 6;
-const gamesLose = 6;
-
-const allGames = [];
 </script>
 
 <template>
     <AppContainer>
 
-        <div :class="styles.statistic">
+        <div
+            v-if="isLoadingStats"
+            :class="styles.loading"
+        >
+            <VSpin :class="styles.loadingSpin" />
+        </div>
+
+        <div
+            v-else
+            :class="styles.statistic"
+        >
             <StatisticCard
                 gold
                 icon="bank"
@@ -40,7 +53,7 @@ const allGames = [];
                     Games won
                 </template>
                 <template #value>
-                    {{ gamesWon }}
+                    {{ stats.gamesWon }}
                 </template>
             </StatisticCard>
 
@@ -49,7 +62,7 @@ const allGames = [];
                     Games lose
                 </template>
                 <template #value>
-                    {{ gamesLose }}
+                    {{ stats.gamesLose }}
                 </template>
             </StatisticCard>
         </div>
@@ -58,7 +71,10 @@ const allGames = [];
             Last games
         </div>
 
-        <GamesHistory :games="allGames" />
+        <GamesHistory
+            :games="gamesHistory"
+            :loading="isLoadingHistory"
+        />
 
     </AppContainer>
 </template>
