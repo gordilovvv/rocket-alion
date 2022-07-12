@@ -1,0 +1,175 @@
+.appContainer {
+    display: flex !important;
+    flex-flow: column !important;
+    flex-grow: 1 !important;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-height: 760px;
+    max-height: 900px;
+    flex-grow: 1;
+    margin: auto 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0D0C22 61.78%, #2F245F 123.82%);
+    transform: translateZ(0);
+    border-radius: 30px
+}
+
+.wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: filter 0.2s linear;
+
+    &.blur {
+        filter: blur(20px);
+    }
+
+    .clouds {
+        position: absolute;
+        top: 35px;
+        left: -11px;
+    }
+
+    .planet,
+    .stones,
+    .earth {
+        position: absolute;
+        background-position: 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .planet {
+        &Small {
+            top: -18px;
+            right: 278px;
+            width: 187px;
+            height: 191px;
+            background-image: url('/images/playground/planet-small.png');
+
+            @include retina2x {
+                background-image: url('/images/playground/planet-small@2x.png');
+            }
+        }
+
+        &Big {
+            top: 0;
+            right: 0;
+            width: 395px;
+            height: 219px;
+            background-image: url('/images/playground/planet-big.png');
+
+            @include retina2x {
+                background-image: url('/images/playground/planet-big@2x.png');
+            }
+        }
+    }
+
+    .stones {
+        left: 36px;
+        bottom: 220px;
+        width: 151px;
+        height: 167px;
+        background-image: url('/images/playground/stones.png');
+
+        @include retina2x {
+            background-image: url('/images/playground/stones@2x.png');;
+        }
+    }
+
+    .earth {
+        width: 1359px;
+        height: 192px;
+        left: 0;
+        bottom: 0;
+        background-image: url('/images/playground/earth.png');
+        background-position: left bottom !important;
+
+        @include retina2x {
+            background-image: url('/images/playground/earth@2x.png');
+        }
+    }
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@include max1400 {
+    .background {
+        .stones {
+            display: none;
+        }
+
+        .planet {
+            display: none;
+        }
+
+        .earth {
+            max-width: 100%;
+        }
+    }
+}
+
+@include max1000 {
+    .background {
+        .earth {
+            width: 1000px;
+            height: 149px;
+            max-width: unset;
+        }
+    }
+}
+
+@include max767 {
+    .appContainer {
+        justify-content: flex-end;
+    }
+
+    .container {
+        width: auto;
+        max-width: unset;
+        min-height: 690px; // TODO: maybe dynamic height for lobby & game & results states
+        max-height: 820px; // TODO: maybe dynamic height for lobby & game & results states
+        margin: 0 -16px;
+        background: linear-gradient(180deg, var(--color-essential) 61.78%, #2F245F 123.82%);
+        border-radius: 0;
+    }
+
+    .background {
+        .earth {
+            width: 850px;
+            height: 127px;
+            left: 50%;
+            transform: translate(-63%, 0);
+        }
+
+        .clouds {
+            top: 135px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 1113px;
+            height: 293px;
+        }
+    }
+}

@@ -45,9 +45,9 @@
 
 .description {
     font-family: var(--font-family-title);
-    font-weight: 600;
-    font-size: 34px;
-    line-height: 42px;
+    font-weight: var(--title-font-weight);
+    font-size: var(--title-font-size);
+    line-height: var(--title-line-height);
     text-align: center;
     letter-spacing: -0.02em;
     text-transform: uppercase;
@@ -126,11 +126,6 @@
         font-size: 18px;
         line-height: 23px;
         margin-bottom: 8px;
-    }
-
-    .description {
-        font-size: 30px;
-        line-height: 37px;
     }
 
     .progress {

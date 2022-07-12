@@ -1,0 +1,180 @@
+.rocket {
+    position: relative;
+    width: 60px;
+    height: 100px;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.scull {
+    position: absolute;
+    top: -105px;
+    left: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 34px;
+    height: 32px;
+    background-color: var(--color-soft);
+    border-radius: 8px 8px 0 0;
+    transform: translate(-50%, 0);
+    will-change: transform;
+
+    &Icon {
+        color: var(--color-danger);
+    }
+
+    &Rectangle {
+        position: absolute;
+        bottom: -14px;
+        left: 0;
+        color: var(--color-soft);
+    }
+}
+
+.label {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 114px;
+    font-family: var(--font-family-text);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    height: 34px;
+    padding: 0 10px;
+    border-radius: 68px;
+    white-space: nowrap;
+    user-select: none;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+
+    &.current {
+        border: 1px solid #8A5ED0;
+        background: linear-gradient(177.85deg, #8C5FD3 1.81%, #121025 98.19%);
+    }
+
+    &.current &Text {
+        background-image: linear-gradient(180deg, #F2B563 56.41%, #FF522C 107.69%);
+        background-size: 100%;
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; 
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+    }
+
+    &.lose {
+        color: var(--color-danger) !important;
+        border: 1px solid var(--color-danger);
+        background: rgba(209, 59, 68, 0.2) !important;
+    }
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+}
+
+.rocket1 .image {
+    background-image: url('/images/playground/rockets/rocket-1.png');
+
+    @include retina2x {
+        background-image: url('/images/playground/rockets/rocket-1@2x.png');
+    }
+}
+
+.rocket2 .image {
+    background-image: url('/images/playground/rockets/rocket-2.png');
+
+    @include retina2x {
+        background-image: url('/images/playground/rockets/rocket-2@2x.png');
+    }
+}
+
+.rocket3 .image {
+    background-image: url('/images/playground/rockets/rocket-3.png');
+
+    @include retina2x {
+        background-image: url('/images/playground/rockets/rocket-3@2x.png');
+    }
+}
+
+.rocket4 .image {
+    background-image: url('/images/playground/rockets/rocket-4.png');
+
+    @include retina2x {
+        background-image: url('/images/playground/rockets/rocket-4@2x.png');
+    }
+}
+
+.trail {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.explosion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 248px;
+    height: 248px;
+    background-size: auto 100%;
+    background-image: url('/images/playground/explosion-sprite.png');
+    background-repeat: no-repeat;
+    background-position: top left;
+    animation: explosionAnim 1.1s steps(34);
+}
+
+@keyframes explosionAnim {
+    100% {
+        background-position: top right;
+    }
+}
+
+@include max767 {
+    .rocket {
+        width: 40px;
+        height: 66px;
+    }
+
+    .label {
+        top: -38px;
+        width: 86px;
+        height: 30px;
+        font-size: 10px;
+        line-height: 13px;
+        padding: 0 4px;
+    }
+
+    .scull {
+        top: -85px;
+        width: 30px;
+        height: 25px;
+
+        &Icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        &Rectangle {
+            width: 30px;
+            height: 17px;
+        }
+    }
+}

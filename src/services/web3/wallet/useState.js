@@ -32,13 +32,34 @@ watchEffect(() => ls.set(WALLET_STATE_LS, {
     isConnected: state.isConnected
 }));
 
+
+// TODO: error
+// let errorAlert;
+// const { showAlert, hideAlert } = useAlert();
+
+// watchEffect(() => {
+//     if (state.chainId && state.chainId !== ACTIVE_CHAIN_ID) {
+//         errorAlert = showAlert({
+//             view: 'danger',
+//             text: `App network (Ethereum) doesn't match to network selected in wallet (network with id: ${ state.chainId }).`,
+//             autoClose: false
+//         });
+//     } else {
+//         if (errorAlert) {
+//             errorAlert = undefined;
+
+//             hideAlert();
+//         }
+//     }
+// });
+
 export function useWalletState() {
     const resetState = () => {
         state.walletId = '';
         state.address = '';
         state.balance = 0;
         state.isConnected = false;
-    }
+    };
 
     return {
         ...toRefs(state),

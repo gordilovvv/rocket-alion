@@ -1,0 +1,140 @@
+.container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    min-width: 350px;
+}
+
+.finish {
+    position: absolute;
+    top: 0;
+    left: 30px;
+    right: 30px;
+    padding: 60px 0 40px 0;
+    pointer-events: none;
+
+    &Text,
+    &Prize {
+        position: relative;
+        z-index: 10;
+        will-change: transform;
+    }
+
+    &Text {
+        font-family: var(--font-family-text);
+        color: var(--color-primary);
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 29px;
+        text-align: center;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    &Prize {
+        font-family: var(--font-family-title);
+        font-weight: var(--title-font-weight);
+        font-size: var(--title-font-size);
+        line-height: var(--title-line-height);
+        text-align: center;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #F2B563 56.41%, #FF522C 107.69%);
+        background-size: 100%;
+        background-repeat: repeat;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-size: 1320px 2px;
+        background-image: url('/images/playground/finish-line.svg');
+        background-position: 50%;
+    }
+}
+
+.rockets {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 245px);
+    gap: 380px;
+    z-index: 8;
+
+    &Col {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@include max1200 {
+    .rockets {
+        gap: 300px;
+    }
+}
+
+@include max1000 {
+    .container {
+        padding-bottom: 10px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 225px;
+            background: linear-gradient(180.07deg, #0E0D23 35.64%, rgba(14, 13, 35, 0) 99.94%);
+            z-index: 9;
+        }
+    }
+    
+    .rockets {
+        grid-template-columns: repeat(2, 220px);
+        gap: 120px;
+    }
+
+    .finish {
+        &::after {
+            background-image: url('/images/playground/finish-line-xs.svg');
+            height: 1px;
+            z-index: 10;
+        }
+    }
+}
+
+@include max767 {
+    .container {
+        padding-bottom: 80px;
+
+        &::before {
+            background: linear-gradient(180.07deg, var(--color-essential) 35.64%, rgba(14, 13, 35, 0) 99.94%);
+        }
+    }
+
+    .finish {
+        padding: 20px 0;
+        left: 0;
+        right: 0;
+
+        &Text {
+            font-size: 18px;
+            line-height: 23px;
+            margin-bottom: 6px;
+        }
+    }
+
+    .rockets {
+        grid-template-columns: repeat(2, 130px);
+        gap: 50px;
+    }
+}

@@ -4,6 +4,7 @@ import { useWalletState } from '../useState';
 import { ACTIVE_CHAIN_ID } from '../chain';
 
 import { logoutFromWallet } from './logout';
+import { getBalance } from '../utils/getBalance';
 
 import { closeWalletConnectionPopup } from '../popup/actions';
 import { isWalletConnectionPopupOpened } from '../popup/state';
@@ -37,26 +38,6 @@ export async function connectWallet(provider, id) {
     if (isWalletConnectionPopupOpened) {
         closeWalletConnectionPopup();
     }
-}
-
-// TODO: move to blockchain class
-async function getBalance(account) {
-    const { web3 } = useWalletState();
-
-    let balance = 0;
-
-    try {
-        const wei = await web3.value.eth.getBalance(account);
-    
-        balance = parseFloat(web3.value.utils.fromWei(
-            wei,
-            'ether'
-        ));
-    } catch ({ message }) {
-        console.error(message);
-    }
-
-    return balance;
 }
 
 function subscribeOnProviderEvents(provider) {

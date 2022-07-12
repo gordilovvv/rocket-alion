@@ -1,19 +1,20 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, useCssModule } from 'vue';
 import PlaygroundResultPlayer from './player/PlaygroundResultPlayer.vue';
 import VButton from '@/components/common/button/VButton.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { startGame } from '@/services/playground/game';
 import { ellipseAddress } from '@/utils/address';
+import { useGameStore } from '@/stores/game';
 
 const props = defineProps({
-    game: {
+    gameId: {
         type: String,
         required: true
     },
     hash: {
         type: String,
-        required: true
+        default: ''
     },
     players: {
         type: Array,
@@ -28,6 +29,7 @@ const props = defineProps({
 });
 
 const { address } = useWallet();
+const gameStore = useGameStore();
 const isLoadingRestart = ref(false);
 
 const allPlayers = computed(() => {
@@ -44,6 +46,15 @@ const isCurrentPlayerWinner = computed(() => {
     );
 
     return looser?.address !== address.value;
+});
+
+const styles = useCssModule('styles');
+
+const resultClasses = computed(() => {
+    return [styles.results, {
+        [styles.win]: isCurrentPlayerWinner.value,
+        [styles.lose]: !isCurrentPlayerWinner.value
+    }];
 });
 
 const title = computed(() => {
@@ -64,54 +75,65 @@ const getPlayerText = playerAddress => {
 };
 
 const restart = async () => {
-    isLoadingRestart.value = true;
+    isLoadingRestart.value = gameStore.isGameStarting = true;
 
-    await startGame(props.game);
+    await startGame(props.gameId);
 
-    isLoadingRestart.value = false;
+    isLoadingRestart.value = gameStore.isGameStarting = false;
 };
 </script>
 
 <template>
-    <div
-        :class="[
-            styles.results, {
-                [styles.win]: isCurrentPlayerWinner,
-                [styles.lose]: !isCurrentPlayerWinner
-            }
-        ]"
-    >
+    <div :class="resultClasses">
 
         <div :class="styles.head">
-            <div :class="styles.headImage" />
-
-            <div :class="styles.headTitle">
-                {{ title }}
-            </div>
-        </div>
-
-        <div :class="styles.body">
-            <div :class="styles.bodyTable">
-                <PlaygroundResultPlayer
-                    v-for="player in allPlayers"
-                    :key="player.address"
-                    :text="getPlayerText(player.address)"
-                    :amount="player.resultAmount"
-                    :winner="!player.looser"
-                    :current-player="isCurrentPlayer(player.address)"
-                />
-            </div>
-
-            <VButton
-                block
-                :loading="isLoadingRestart"
-                @click="restart"
+            <Transition
+                name="result-image"
+                appear
             >
-                Restart
-            </VButton>
+                <div :class="styles.headImage" />
+            </Transition>
+
+            <Transition
+                name="result-title"
+                appear
+            >
+                <div :class="styles.headTitle">
+                    {{ title }}
+                </div>
+            </Transition>
         </div>
 
-        <div :class="styles.hash">
+        <Transition
+            name="result-content"
+            appear
+        >
+            <div :class="styles.body">
+                <div :class="styles.bodyTable">
+                    <PlaygroundResultPlayer
+                        v-for="player in allPlayers"
+                        :key="player.address"
+                        :text="getPlayerText(player.address)"
+                        :amount="player.resultAmount"
+                        :winner="!player.looser"
+                        :current-player="isCurrentPlayer(player.address)"
+                    />
+                </div>
+
+                <VButton
+                    block
+                    :loading="isLoadingRestart"
+                    @click="restart"
+                >
+                    Restart
+                </VButton>
+            </div>
+        </Transition>
+
+        <div
+            v-if="hash"
+            :class="styles.hash"
+        >
             <div :class="styles.hashText">
                 Round Hash:
             </div>
@@ -126,4 +148,38 @@ const restart = async () => {
 
 <style lang="scss" module="styles">
 @import './PlaygroundResults.module.scss';
+</style>
+
+<style lang="scss">
+.result-title-enter {
+    &-from {
+        opacity: 0;
+        transform: translate(0, 30px);
+    }
+
+    &-to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    &-active {
+        transition: transform 0.25s, opacity 0.15s;
+        transition-delay: 0.15s;
+    }
+}
+
+.result-image-enter {
+    &-from {
+        transform: scale(0);
+    }
+
+    &-to {
+        transform: scale(1);
+    }
+
+    &-active {
+        transition: transform 0.3s ease-out;
+        transition-delay: 0.3s;
+    }
+}
 </style>
