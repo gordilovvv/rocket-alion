@@ -1,7 +1,8 @@
 <script setup>
-import DefaultLayout from '@/layouts/default/DefaultLayout.vue';
-import { useCssModule } from 'vue';
+import { computed, useCssModule } from 'vue';
 import { walletAutoConnect } from './services/web3/wallet/actions/autoConnect';
+import { LAYOUTS, DEFAULT_LAYOUT } from './layouts/layouts';
+import { useRoute } from 'vue-router';
 
 const vars = useCssModule('vars');
 
@@ -10,15 +11,20 @@ document.body.classList.add(
     vars.decorations
 );
 
+const route = useRoute();
+const layout = computed(() => {
+    return LAYOUTS[route.meta.layout] || LAYOUTS[DEFAULT_LAYOUT];
+});
+
 walletAutoConnect();
 </script>
 
 <template>
-    <DefaultLayout>
+    <Component :is="layout">
 
         <RouterView />
 
-    </DefaultLayout>
+    </Component>
 </template>
 
 <style lang="scss">
