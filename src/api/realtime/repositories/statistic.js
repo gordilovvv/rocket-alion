@@ -1,3 +1,4 @@
+import { ellipseAddress } from "@/utils/address";
 import { onMounted, onUnmounted, reactive, ref, unref } from "vue";
 import { requestScopedDataFromSocket } from "../realtime";
 
@@ -33,7 +34,13 @@ export function usePlayerStatistic(address) {
             'playerStats',
             payload,
             games => {
-                gamesHistory.value = games;
+                // TODO: remove this
+                gamesHistory.value = games.map(game => ({
+                    id: ellipseAddress(game.ID),
+                    betAmount: 0,
+                    winningAmount: 0,
+                    timestamp: 0
+                }));
                 isLoadingHistory.value = false;
             }
         ));
