@@ -60,7 +60,7 @@ export async function startGame(id, redirectCallback) {
     redirectCallback?.();
 }
 
-export async function autoConnectToGame(id, redirectCallback) {
+export async function autoConnectToGame(id, failCallback) {
     if (wasSubscribed.value)
         return;
 
@@ -71,7 +71,7 @@ export async function autoConnectToGame(id, redirectCallback) {
         address.value,
         id,
         () => {
-            redirectCallback?.();
+            failCallback?.();
 
             showAlert({
                 view: 'danger',

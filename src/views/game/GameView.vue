@@ -35,6 +35,7 @@ import GameVisual from '@/components/game/playground/visual/GameVisual.vue';
 import PlaygroundContainer from '@/components/game/playground/container/PlaygroundContainer.vue';
 import PlaygroundLobby from '@/components/game/playground/lobby/PlaygroundLobby.vue';
 import PlaygroundResult from '@/components/game/playground/results/PlaygroundResult.vue';
+import { useRouter } from 'vue-router';
 import { autoConnectToGame } from '@/services/playground/game';
 import { synchronizeGameStorage, resetGameStorage } from '@/services/playground/storage';
 
@@ -94,9 +95,15 @@ const showResults = () => {
     resetGameStorage();
 };
 
+const router = useRouter();
+
 onMounted(() => {
     synchronizeGameStorage(gameStore);
-    autoConnectToGame(gameStore.game.id);
+    
+    autoConnectToGame(gameStore.game.id, () => {
+        router.push('/');
+        resetGameStorage();
+    });
 });
 
 onUnmounted(resetGameStorage);
