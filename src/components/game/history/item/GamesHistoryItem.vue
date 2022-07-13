@@ -1,18 +1,13 @@
 <script setup>
 import { computed } from 'vue';
-import VIcon from '@/components/common/icon/VIcon.vue';
-import { timestampToDate, timestampToTime } from '@/utils/date'
-import { ellipseAddress } from '@/utils/address';
-import { formatCurrency } from '@/utils/currency';
 import ChainIcon from '@/components/general/chain/ChainIcon.vue';
+import VIcon from '@/components/common/icon/VIcon.vue';
+import { timestampToDate, timestampToTime } from '@/utils/date';
+import { formatCurrency } from '@/utils/currency';
 
 const props = defineProps({
     id: {
         type: [String, Number],
-        required: true
-    },
-    wallet: {
-        type: String,
         required: true
     },
     betAmount: {
@@ -23,27 +18,15 @@ const props = defineProps({
         type: Number,
         required: true
     },
-    chain: {
-        type: String,
-        default: 'default'
-    },
     timestamp: {
         type: Number,
         required: true
     }
 });
 
-const checkUrl = computed(() => {
-    return `/check?game=${ props.id }`; 
-});
-
-const shortWallet = computed(() => {
-    return ellipseAddress(props.wallet);
-});
-
 const gameDate = computed(() => {
     return timestampToDate(props.timestamp);
-})
+});
 
 const gameTime = computed(() => {
     return timestampToTime(props.timestamp);
@@ -54,10 +37,7 @@ const gameTime = computed(() => {
     <div :class="styles.game">
 
         <div :class="styles.id">
-            <RouterLink
-                :to="checkUrl"
-                :class="styles.idLink"
-            >
+            <div :class="styles.idWrap">
                 <div :class="styles.idNumber">
                     {{ id }}
                 </div>
@@ -65,11 +45,7 @@ const gameTime = computed(() => {
                 <div :class="styles.idIcon">
                     <VIcon name="shield" />
                 </div>
-            </RouterLink>
-        </div>
-
-        <div :class="styles.wallet">
-            {{ shortWallet }}
+            </div>
         </div>
 
         <div :class="styles.amount">

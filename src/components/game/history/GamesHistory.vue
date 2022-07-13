@@ -8,7 +8,7 @@ defineProps({
         default: () => ([])
     },
     loading: Boolean
-})
+});
 </script>
 
 <template>
@@ -17,10 +17,6 @@ defineProps({
         <div :class="styles.head">
             <div :class="styles.col">
                 Game ID
-            </div>
-
-            <div :class="[styles.col, styles.wallet]">
-                Winner's wallet
             </div>
 
             <div :class="[styles.col, styles.amount]">
@@ -47,12 +43,21 @@ defineProps({
                 :class="styles.spin"
             />
 
-            <div v-else>
+            <div v-else-if="games.length">
                 <GamesHistoryItem
                     v-for="game in games"
                     :key="game.id"
                     v-bind="game"
                 />
+            </div>
+
+            <div
+                v-else
+                :class="styles.placeholder"
+            >
+                <div :class="styles.placeholderText">
+                    Nothing was found
+                </div>
             </div>
         </div>
 

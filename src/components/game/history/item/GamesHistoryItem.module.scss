@@ -1,6 +1,6 @@
 .game {
     display: grid;
-    grid-template-columns: 17% 24% 22% 95px 1fr;
+    grid-template-columns: 22% 1fr 17% 1fr;
     gap: 15px;
     align-items: baseline;
     padding: 28px 30px;
@@ -29,7 +29,28 @@
 .id {
     display: flex;
 
-    &Link {
+    // &Link {
+    //     display: flex;
+    //     align-items: center;
+    //     font-weight: 500;
+    //     color: var(--color-typo-base);
+    //     background-color: transparent;
+    //     padding: 5px 8px;
+    //     border-radius: 8px;
+    //     user-select: text;
+    //     text-decoration: none;
+    //     cursor: pointer;
+    //     transition: background-color 0.1s;
+
+    //     @include hover {
+    //         &:hover {
+    //             background-color: var(--color-soft);
+    //         }
+    //     }
+    // }
+
+
+    &Wrap {
         display: flex;
         align-items: center;
         font-weight: 500;
@@ -37,16 +58,6 @@
         background-color: transparent;
         padding: 5px 8px;
         border-radius: 8px;
-        user-select: text;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background-color 0.1s;
-
-        @include hover {
-            &:hover {
-                background-color: var(--color-soft);
-            }
-        }
     }
 
     &Icon {
@@ -93,23 +104,9 @@
     display: none;
 }
 
-@include max1400 {
-    .game {
-        grid-template-columns: 15% 24% 22% 95px 1fr;
-    }
-}
-
 @include max1200 {
     .game {
-        grid-template-columns: 18% 1fr 24% 95px 12%;
-    }
-
-    .date {
-        display: none;
-    }
-
-    .time {
-        display: block;
+        grid-template-columns: 20% 1fr 15% 1fr;
     }
 }
 
@@ -125,6 +122,14 @@
     .wallet,
     .bet {
         display: none;
+    }
+    
+    .date {
+        display: none;
+    }
+
+    .time {
+        display: block;
     }
 }
 
