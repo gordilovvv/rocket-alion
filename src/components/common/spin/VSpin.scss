@@ -2,6 +2,7 @@
     position: relative;
     width: 30px;
     height: 30px;
+    --spin-color: var(--color-primary);
 
     div {
         display: block;
@@ -17,7 +18,7 @@
             width: 2px;
             height: 7px;
             border-radius: 18px;
-            background: var(--color-primary);
+            background: var(--spin-color);
         }
 
         &:nth-child(1) {
