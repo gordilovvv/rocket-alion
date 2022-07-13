@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { useGameStore } from '@/stores/game'; 
 import { useRoomsStore } from '@/stores/rooms';
 import { useAlert } from '@/services/alert/useAlert';
-import { unsubscribeFromGame } from '@/api/realtime/subscribers/game';
 
 export default {
     beforeRouteEnter() {
@@ -31,7 +30,7 @@ export default {
 </script>
 
 <script setup>
-import { onUnmounted, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import GameVisual from '@/components/game/playground/visual/GameVisual.vue';
 import PlaygroundContainer from '@/components/game/playground/container/PlaygroundContainer.vue';
 import PlaygroundLobby from '@/components/game/playground/lobby/PlaygroundLobby.vue';
@@ -86,8 +85,6 @@ const blurPlayground = computed(() => {
         STAGE_RESULTS
     ].includes(activeStage.value);
 });
-
-onUnmounted(unsubscribeFromGame);
 </script>
 
 <template>

@@ -24,11 +24,6 @@ export async function startGame(id, redirectCallback) {
         autoClose: false
     });
 
-    let transferPromiseResolve;
-    const transferPromise = new Promise(
-        resolve => transferPromiseResolve = resolve
-    );
-
     const transferTokens = async walletAddress => {
         try {
             const { bet } = roomsStore.rooms[id];
@@ -44,39 +39,25 @@ export async function startGame(id, redirectCallback) {
 
             balance.value = balanceValue;
 
-            transferPromiseResolve(transaction);
+            return transaction.transactionHash;
         } catch (error) {
             showAlert({
                 view: 'danger',
                 text: 'Oops! Something gone wrong...'
             });
-            
-            console.error(error);
 
-            transferPromiseResolve();
+            return false;
         }
     };
 
-    const { sendPayTransaction } = subscribeToGame(
+    await subscribeToGame(
         address.value,
         id,
         transferTokens
     );
 
-    const transaction = await transferPromise;
-
-    if (transaction?.transactionHash) {
-        await sendPayTransaction(transaction.transactionHash);
-
-        hideAlert();
-
-        redirectCallback?.();
-    } else {
-        showAlert({
-            view: 'danger',
-            text: 'Oops! Something gone wrong...'
-        });
-    }
+    hideAlert();
+    redirectCallback?.();
 }
 
 export function isPlayerWinner(resultAmount) {

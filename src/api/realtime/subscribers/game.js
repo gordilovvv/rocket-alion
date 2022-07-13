@@ -1,10 +1,21 @@
-import { useGameStore } from "@/stores/game";
 import { socket } from "../realtime";
+import { useGameStore } from "@/stores/game";
 
-// TODO: fix
-export function subscribeToGame(playerAddress, gameType, payCallback) {
-    let id;
+export async function subscribeToGame(playerAddress, gameType, payCallback) {
+    let resolve;
+    let promise = new Promise(
+        r => resolve = r
+    );
+    
+    let payId;
     const gameStore = useGameStore();
+
+    const sendPayTransaction = transaction => {
+        socket.emit(
+            'pay',
+            { ID: payId, transaction }
+        );
+    };
 
     socket.emit(
         'subscribe',
@@ -17,66 +28,28 @@ export function subscribeToGame(playerAddress, gameType, payCallback) {
 
     socket.once(
         'pay',
-        res => {
-            id = res.ID;
+        async res => {
+            payId = res.ID;
             
-            payCallback(res.walletAddress);
+            const transaction = await payCallback(res.walletAddress);
+
+            if (transaction) {
+                sendPayTransaction(transaction);
+            }
         }
     );
 
-    return {
-        sendPayTransaction
-    };
+    socket.on('game', ({ gameType, players }) => {
+        if (!gameStore.game)
+            gameStore.game = {};
 
-    async function sendPayTransaction(txHash) {
-        let resolve;
-        const promise = new Promise(
-            r => resolve = r
-        );
+        if (gameType) 
+            gameStore.game.id = gameType;
 
-        socket.emit(
-            'pay',
-            { ID: id, transaction: txHash }
-        );
+        gameStore.game.players = players;
 
-        socket.on('game', ({ gameType, players }) => {
-            if (!gameStore.game) {
-                gameStore.game = {};
-            }
+        resolve();
+    });
 
-            if (gameType) {
-                gameStore.game.id = gameType;
-            }
-
-            gameStore.game.players = players;
-
-            if (resolve) {
-                resolve();
-            }
-        });
-
-        return promise;
-    }
+    return promise;
 }
-
-export function unsubscribeFromGame() {
-    socket.emit(
-        'unsubscribe',
-        { scope: 'game' }
-    );
-}
-
-// const fakeGameStart = () => {
-//     const looserIndex = 0;
-    
-
-//     if ( gameStore.game.players.length === 3)
-//         gameStore.game.players
-//             .push({ address: '0xf89d7b9c864f589bbF53a82105107622B35EaA40' });
-
-//     gameStore.game.players = gameStore.game.players
-//         .map((player, index) => ({
-//             ...player,
-//             resultAmount: index === looserIndex ? -0.001 : 1
-//         }));
-// };
