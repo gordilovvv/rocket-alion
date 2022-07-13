@@ -4,7 +4,7 @@ import { getBalance } from "../web3/wallet/utils/getBalance";
 import { useAlert } from "../alert/useAlert";
 import { WALLET_CONNECT_ID } from "../web3/wallet/ids";
 import { preloadImages } from "@/utils/image";
-import { subscribeToGame } from "@/api/realtime/subscribers/game";
+import { subscribeToGame, wasSubscribed } from "@/api/realtime/subscribers/game";
 import { useRoomsStore } from "@/stores/rooms";
 
 export const GAME_DURATION_MS = import.meta.env.VITE_GAME_DURATION_MS;
@@ -58,6 +58,27 @@ export async function startGame(id, redirectCallback) {
 
     hideAlert();
     redirectCallback?.();
+}
+
+export async function autoConnectToGame(id, redirectCallback) {
+    if (wasSubscribed.value)
+        return;
+
+    const { address } = useWallet();
+    const { showAlert } = useAlert();
+
+    await subscribeToGame(
+        address.value,
+        id,
+        () => {
+            redirectCallback?.();
+
+            showAlert({
+                view: 'danger',
+                text: 'You are not in the game!'
+            });
+        }
+    );
 }
 
 export function isPlayerWinner(resultAmount) {

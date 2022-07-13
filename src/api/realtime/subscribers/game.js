@@ -1,5 +1,8 @@
+import { ref } from "vue";
 import { socket } from "../realtime";
 import { useGameStore } from "@/stores/game";
+
+export const wasSubscribed = ref(false);
 
 export async function subscribeToGame(playerAddress, gameType, payCallback) {
     let resolve;
@@ -50,6 +53,8 @@ export async function subscribeToGame(playerAddress, gameType, payCallback) {
 
         resolve();
     });
+
+    wasSubscribed.value = true;
 
     return promise;
 }

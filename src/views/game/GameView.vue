@@ -30,11 +30,13 @@ export default {
 </script>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import GameVisual from '@/components/game/playground/visual/GameVisual.vue';
 import PlaygroundContainer from '@/components/game/playground/container/PlaygroundContainer.vue';
 import PlaygroundLobby from '@/components/game/playground/lobby/PlaygroundLobby.vue';
 import PlaygroundResult from '@/components/game/playground/results/PlaygroundResult.vue';
+import { autoConnectToGame } from '@/services/playground/game';
+import { synchronizeGameStorage, resetGameStorage } from '@/services/playground/storage';
 
 // TODO: preload all images
 const activeStage = ref();
@@ -85,6 +87,19 @@ const blurPlayground = computed(() => {
         STAGE_RESULTS
     ].includes(activeStage.value);
 });
+
+const showResults = () => {
+    activeStage.value = STAGE_RESULTS;
+
+    resetGameStorage();
+};
+
+onMounted(() => {
+    synchronizeGameStorage(gameStore);
+    autoConnectToGame(gameStore.game.id);
+});
+
+onUnmounted(resetGameStorage);
 </script>
 
 <template>
@@ -101,7 +116,7 @@ const blurPlayground = computed(() => {
             v-else-if="activeStage === STAGE_VISUAL"
             :prize-sum="activeRoom.prize"
             :players="gameStore.game.players"
-            @finish="activeStage = STAGE_RESULTS" 
+            @finish="showResults" 
         />
 
         <!-- Result -->
