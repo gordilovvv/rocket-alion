@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import PlaygroundLobbyOption from './option/PlaygroundLobbyOption.vue';
-import { countPlayersPercent, getAllPlayersItems } from '@/services/playground/lobby'
+import { countPlayersPercent, getAllPlayersItems } from '@/services/playground/lobby';
 import { formatCurrency } from '@/utils/currency';
 import PlaygroundLobbyPlayer from './player/PlaygroundLobbyPlayer.vue';
 
@@ -27,21 +27,21 @@ const props = defineProps({
         type: Number,
         required: true
     }
-})
+});
 
 const allPlayers = computed(() => {
     return getAllPlayersItems(props.players, props.playersCapacity);
-})
+});
 
 const progressCount = computed(() => {
     return `${ props.players.length }/${ props.playersCapacity }`;
-})
+});
 
 const progressLineStyles = computed(() => {
     const percent = countPlayersPercent(props.players.length, props.playersCapacity);
 
     return { width: `${ percent }%` };
-})
+});
 </script>
 
 <template>
