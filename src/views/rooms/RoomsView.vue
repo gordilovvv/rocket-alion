@@ -1,35 +1,18 @@
 <script setup>
-import { useRecentWinnings } from '@/api/realtime/suscribers/winnings';
+import { computed } from 'vue';
 import RoomCard from '@/components/game/card/RoomCard.vue';
 import AppContainer from '@/components/general/container/AppContainer.vue';
 import GamesHistory from '@/components/game/history/GamesHistory.vue';
+import { useRoomsStore } from '@/stores/rooms';
+import { useRecentWinnings } from '@/api/realtime/subscribers/winnings';
 
-const rooms = [
-    {
-        id: 'rookie',
-        name: 'Rookie',
-        bet: 0.1,
-        prize: 0.12,
-        chance: 75,
-        best: false
-    },
-    {
-        id: 'hunter',
-        name: 'Bounty hunter',
-        bet: 0.5,
-        prize: 0.6,
-        chance: 75,
-        best: false
-    },
-    {
-        id: 'king',
-        name: 'King',
-        bet: 1,
-        prize: 1.2,
-        chance: 75,
-        best: true
-    }
-]
+const roomsStore = useRoomsStore();
+
+const rooms = computed(() => {
+    return Object.entries(roomsStore.rooms).map(
+        ([id, game]) => ({ id, ...game })
+    );
+});
 
 const { winnings, isLoading } = useRecentWinnings();
 </script>
