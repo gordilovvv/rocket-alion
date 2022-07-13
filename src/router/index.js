@@ -1,5 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import RoomsView from '@/views/rooms/RoomsView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import RoomsView from '@/views/rooms/RoomsView.vue';
+import { EMPTY_LAYOUT, GAME_LAYOUT } from '@/layouts/layouts';
+import { useWallet } from '@/services/web3/wallet/useWallet';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,11 +12,46 @@ const router = createRouter({
             component: RoomsView
         },
         {
-            path: '/check',
-            name: 'check-game',
-            component: () => import('../views/check/CheckView.vue')
-        }
+            path: '/game',
+            name: 'game',
+            meta: {
+                layout: GAME_LAYOUT
+            },
+            component: () => import('../views/game/GameView.vue')
+        },
+        {
+            path: '/guide',
+            name: 'guide',
+            meta: {
+                layout: EMPTY_LAYOUT
+            },
+            component: () => import('../views/guide/GuideView.vue')
+        },
+        {
+            path: '/history',
+            name: 'history',
+            component: () => import('../views/history/HistoryView.vue')
+        },
+        {
+            path: '/faq',
+            name: 'faq',
+            component: () => import('../views/faq/FaqView.vue')
+        },
     ]
-})
+});
 
-export default router
+const SECURE_PAGES = [
+    '/game',
+    '/history'
+];
+
+router.beforeEach(async to => {
+    const { isConnected } = useWallet();
+    const connectRequired = SECURE_PAGES.includes(to.path);
+
+    if (connectRequired && !isConnected.value) {
+        return '/';
+    }
+});
+
+export default router;
