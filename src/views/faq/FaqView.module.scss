@@ -1,0 +1,28 @@
+.title {
+    font-family: var(--font-family-title);
+    font-weight: var(--title-font-weight);
+    font-size: var(--title-font-size);
+    line-height: var(--title-line-height);
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #FFFFFF 67.95%, rgba(0, 0, 0, 0) 123.08%);
+    background-size: 100%;
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    margin-bottom: 120px;
+}
+
+.list {
+    display: flex;
+    flex-flow: column;
+}
+
+@include max767 {
+    .title {
+        margin-bottom: 80px;
+    }
+}
