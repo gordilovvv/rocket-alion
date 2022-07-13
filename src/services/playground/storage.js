@@ -3,7 +3,7 @@ import { ls } from "@/utils/localStorage";
 
 let stopWatcher;
 
-const GAME_STORAGE_KEY = 'activeGame';
+const GAME_STORAGE_KEY = 'active-game';
 
 export function getGameFromStorage(defaultValue = null) {
     return ls.get(GAME_STORAGE_KEY) ?? defaultValue;
