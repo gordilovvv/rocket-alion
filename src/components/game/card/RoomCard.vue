@@ -1,8 +1,11 @@
 <script setup>
-import { computed, useCssModule } from 'vue';
+import { computed, ref, useCssModule } from 'vue';
 import VButton from '@/components/common/button/VButton.vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
+import { useRouter } from 'vue-router';
 import { useWallet } from '@/services/web3/wallet/useWallet';
+import { useGameStore } from '@/stores/game';
+import { startGame } from '@/services/playground/game';
 import { formatCurrency } from '@/utils/currency';
 
 const props = defineProps({
@@ -27,7 +30,7 @@ const props = defineProps({
         required: true
     },
     best: Boolean
-})
+});
 
 const styles = useCssModule('styles');
 
@@ -35,19 +38,29 @@ const cardClasses = computed(() => {
     return [styles.card, {
         [styles.default]: !props.best,
         [styles.best]: props.best
-    }]
-})
+    }];
+});
 
 const percent = computed(() => {
     return `${ props.chance }%`;
-})
+});
 
 const rocketSrcset = computed(() => {
     return `/images/rooms/${ props.id }.png 1x, /images/rooms/${ props.id }@2x.png 2x`;
-})
+});
 
+const gameStore = useGameStore();
+const isCurrentGameStarting = ref(false);
 // TODO: check this. Maybe we dont need to call open popup func
 const { isConnected, openWalletConnectionPopup } = useWallet();
+
+const isButtonLoading = computed(() => {
+    return isCurrentGameStarting.value;
+});
+
+const isButtonDisabled = computed(() => {
+    return !isButtonLoading.value && gameStore.isGameStarting;
+});
 
 const buttonText = computed(() => {
     return isConnected.value
@@ -55,13 +68,22 @@ const buttonText = computed(() => {
         : 'Connect wallet';
 });
 
-const play = () => {
+const router = useRouter();
+
+const play = async () => {
+    if (gameStore.isGameStarting)
+        return;
+        
     if (isConnected.value) {
-        console.log('play', props.id);
+        gameStore.isGameStarting = isCurrentGameStarting.value = true;
+
+        await startGame(props.id, () => router.push('/game'));
+        
+        gameStore.isGameStarting = isCurrentGameStarting.value = false;
     } else {
         openWalletConnectionPopup();
     }
-}
+};
 </script>
 
 <template>
@@ -101,6 +123,8 @@ const play = () => {
 
             <VButton
                 block
+                :loading="isButtonLoading"
+                :disabled="isButtonDisabled"
                 @click="play"
             >
                 {{ buttonText }}
