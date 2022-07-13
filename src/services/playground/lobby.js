@@ -10,7 +10,7 @@ export function getAllPlayersItems(playersInLobby, playersCapacity) {
         if (player) {
             players.push(player);
         } else {
-            players.push({ address: index, loading: true });
+            players.push({ address: `unknown-${ index }`, loading: true });
         }
 
         return players;

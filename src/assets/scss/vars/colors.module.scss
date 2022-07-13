@@ -5,24 +5,26 @@
     --color-project: #A36EF6;
     --color-success: #C3FF50;
     --color-surface: #27184A;
+    --color-danger: #D13B44;
     --color-stroke: #5C3E89;
     --color-binance: #F3992F;
     --color-soft: #2A2545;
     --color-scroll: rgba(116, 73, 240, 0.4);
 
-    --button-action-fill-color-base: linear-gradient(180deg, #A367FF 0%, #B381FF 100%);;
-    --button-action-fill-color-inside: linear-gradient(176.9deg, #663FA3 2.57%, rgba(163, 103, 255, 0) 81.63%);
-    // --button-action-fill-color-hovered: #D9DBFF;
-    // --button-action-fill-color-loading: #EDEEFE;
-    // --button-action-fill-color-disabled: #F2F3F9;
-    --button-action-border-color-base: #A367FF;
-    // --button-action-border-color-hovered: #7449F0;
-    // --button-action-border-color-loading: #7449F0;
-    // --button-action-border-color-disabled: #ADABB4;
+    --button-action-fill-outside-color-base: linear-gradient(180deg, #A367FF 0%, #B381FF 100%);
+    --button-action-fill-inside-color-base: linear-gradient(176.9deg, #663FA3 2.57%, rgba(163, 103, 255, 0) 81.63%);
+    --button-action-fill-outside-color-loading: linear-gradient(180deg, #A367FF 0%, #B381FF 100%);
+    --button-action-fill-inside-color-loading: linear-gradient(176.9deg, #663FA3 2.57%, rgba(163, 103, 255, 0) 81.63%);
+    --button-action-fill-outside-color-disabled: linear-gradient(180deg, #372162 0%, #3B2962 100%);
+    --button-action-fill-inside-color-disabled: linear-gradient(176.9deg, #261649 2.57%, rgba(163, 103, 255, 0) 81.63%);
     --button-action-typo-color-base: #FFFFFF;
-    // --button-action-typo-color-hovered: #7449F0;
-    // --button-action-typo-color-loading: #7449F0;
-    // --button-action-typo-color-disabled: #ADABB4;
+    --button-action-typo-color-loading: #FFFFFF;
+    --button-action-typo-color-disabled: #524F62;
+
+    --alert-success-fill-color-base: #95A645;
+    --alert-success-typo-color-base: #FFFFFF;
+    --alert-danger-fill-color-base: rgba(209, 59, 68, 0.4);
+    --alert-danger-typo-color-base: #FFFFFF;
 
     --color-typo-base: #FFFFFF;
     --color-typo-ghost: #6B6879;
@@ -36,6 +38,18 @@
     --color-wallet-button-wallet-connect-fill-hovered: rgba(163, 110, 246, 0.2);
     --color-wallet-button-wallet-connect-stroke-base: #3B99FC;
     --color-wallet-button-wallet-connect-stroke-hovered: #3B99FC;
+
+    --color-playground-option-fill: #0C0A1C;
+    --color-playground-option-stroke: #472F6B;
+    --color-playground-player-fill-base: #0C0A1C;
+    --color-playground-player-fill-active: #1D122F;
+    --color-playground-player-stroke: #472F6B;
+    --color-playground-bar-fill: #2A2545;
+    --color-playground-result-cup: #FDAD01;
+    --color-playground-result-scull: #BB9AFF;
+    --color-playground-result-fill: #0C0A1C;
+    --color-playground-result-stroke: #472F6B;
+    --color-playground-result-player-stroke: #24193C;
 
     --color-popup-box-fill: #08031F;
     --color-popup-box-stroke: #472F6B;

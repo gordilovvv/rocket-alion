@@ -1,6 +1,6 @@
-import { io } from 'socket.io-client'
+import { io } from 'socket.io-client';
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+export const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 function sendMessageToSocket(type, payload) {
     socket.emit(type, payload);
@@ -23,4 +23,29 @@ export function unsubscribeFromSocketScope(scope) {
         'unsubscribe',
         { scope }
     );
+}
+
+// Like a Rest API
+export function requestScopedDataFromSocket(scope, payload, callback) {
+    sendMessageToSocket(
+        scope,
+        payload
+    );
+
+    if (!callback)
+        return;
+
+    const onSocketEvent =  data => callback(data);
+
+    socket.once(
+        scope,
+        onSocketEvent
+    );
+    
+    return () => {
+        socket.removeListener(
+            scope,
+            onSocketEvent
+        );
+    };
 }
