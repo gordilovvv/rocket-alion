@@ -3,7 +3,6 @@ import { useGameStore } from '@/stores/game';
 import { useAlert } from '@/services/alert/useAlert';
 import { computed } from '@vue/reactivity';
 import { useRoomsStore } from '@/stores/rooms';
-import { preloadAllGameImages } from '@/services/playground/game';
 import { unsubscribeFromGame } from '@/api/realtime/subscribers/game';
 
 export default {

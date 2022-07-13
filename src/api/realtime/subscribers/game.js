@@ -40,6 +40,7 @@ export function subscribeToGame(playerAddress, gameType, payCallback) {
         );
 
         socket.on('game', ({ gameType, players }) => {
+            gameStore.game = {};
             gameStore.game.id = gameType;
             gameStore.game.players = players;
 
