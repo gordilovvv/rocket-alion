@@ -18,14 +18,14 @@ export default {
             return '/';
         }
     },
-    beforeRouteLeave() {
-        const answer = window.confirm(
-            'Do you really want to leave? You’re already in game!'
-        );
+    // beforeRouteLeave() {
+    //     const answer = window.confirm(
+    //         'Do you really want to leave? You’re already in game!'
+    //     );
 
-        if (!answer)
-            return false;
-    }
+    //     if (!answer)
+    //         return false;
+    // }
 };
 </script>
 
@@ -99,7 +99,7 @@ const router = useRouter();
 
 onMounted(() => {
     synchronizeGameStorage(gameStore);
-    
+
     autoConnectToGame(gameStore.game.id, () => {
         router.push('/');
         resetGameStorage();
