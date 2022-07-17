@@ -17,15 +17,7 @@ export default {
 
             return '/';
         }
-    },
-    // beforeRouteLeave() {
-    //     const answer = window.confirm(
-    //         'Do you really want to leave? You’re already in game!'
-    //     );
-
-    //     if (!answer)
-    //         return false;
-    // }
+    }
 };
 </script>
 
@@ -89,24 +81,40 @@ const blurPlayground = computed(() => {
     ].includes(activeStage.value);
 });
 
+const router = useRouter();
+
+const autoConnect = async () => autoConnectToGame(gameStore.game.id, () => {
+    router.push('/');
+    resetGameStorage();
+});
+
 const showResults = () => {
     activeStage.value = STAGE_RESULTS;
 
     resetGameStorage();
 };
 
-const router = useRouter();
+const onDocumentVisibilityChange = () => !document.hidden && autoConnect();
 
 onMounted(() => {
     synchronizeGameStorage(gameStore);
 
-    autoConnectToGame(gameStore.game.id, () => {
-        router.push('/');
-        resetGameStorage();
-    });
+    autoConnect();
+
+    document.addEventListener(
+        'visibilitychange',
+        onDocumentVisibilityChange
+    );
 });
 
-onUnmounted(resetGameStorage);
+onUnmounted(() => {
+    resetGameStorage();
+
+    document.removeEventListener(
+        'visibilitychange',
+        onDocumentVisibilityChange
+    );
+});
 </script>
 
 <template>
