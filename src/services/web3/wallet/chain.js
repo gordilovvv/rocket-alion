@@ -66,3 +66,14 @@ export const ACTIVE_CHAIN_RPC = ACTIVE_CHAIN.rpc;
  
 // Binance Smart Chain METAMASK DATA
 export const ACTIVE_CHAIN_DATA = ACTIVE_CHAIN.data();
+
+export async function addActiveChainRequest(provider) {
+    return provider?.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+            {
+                ...ACTIVE_CHAIN_DATA
+            }
+        ]
+    });
+}

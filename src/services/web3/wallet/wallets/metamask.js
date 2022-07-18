@@ -1,19 +1,8 @@
 import { connectWallet } from '../actions/connect';
 import { METAMASK_ID } from '../ids';
-import { ACTIVE_CHAIN_DATA } from '../chain';
+import { addActiveChainRequest } from '../chain';
 
 const ethereum = window.ethereum;
-
-function addBscChain() {
-    return ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [
-            {
-                ...ACTIVE_CHAIN_DATA
-            }
-        ]
-    });
-}
 
 export const provider = ethereum;
 
@@ -28,7 +17,7 @@ export async function connectMetamask() {
         if (!account)
             throw new Error('Please login with metamask');
 
-        await addBscChain();
+        await addActiveChainRequest(provider);
 
         await connectWallet(ethereum, METAMASK_ID);
     } catch ({ message }) {
