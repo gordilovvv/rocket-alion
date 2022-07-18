@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import PlaygroundLobbyOption from './option/PlaygroundLobbyOption.vue';
 import { countPlayersPercent, getAllPlayersItems } from '@/services/playground/lobby';
 import { formatCurrency } from '@/utils/currency';
@@ -42,6 +42,41 @@ const progressLineStyles = computed(() => {
 
     return { width: `${ percent }%` };
 });
+
+// TODO: fix
+const dots = ref('');
+const description = computed(() => {
+    return props.players.length < props.playersCapacity
+        ? 'Waiting for players'
+        : `Starting game${ dots.value }`;
+});
+
+let interval;
+
+onMounted(() => {
+    const getDotStr = () => {
+        const { value: dotsStr } = dots;
+
+        switch (dotsStr) {
+        case '':
+            return '.';
+        case '.':
+            return '..';
+        case '..':
+            return '...';
+        case '...':
+            return '';
+        }
+    };
+
+    interval = setInterval(() => {
+        dots.value = getDotStr();
+    }, 500);
+});
+
+onUnmounted(() => {
+    clearInterval(interval);
+});
 </script>
 
 <template>
@@ -53,7 +88,7 @@ const progressLineStyles = computed(() => {
             </div>
 
             <div :class="styles.description">
-                Waiting for players
+                {{ description }}
             </div>
 
             <div :class="styles.progress">
