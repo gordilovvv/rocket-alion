@@ -1,0 +1,49 @@
+.text {
+    font-family: var(--font-family-text);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}
+
+.warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-danger);
+    margin-bottom: 30px;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    margin-top: 30px;
+
+    &Spin {
+        --spin-color: var(--color-project);
+    }
+}
+
+.buttonWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.button {
+    width: 90px;
+}
+
+@include max767 {
+    .warning {
+        margin-bottom: 20px;
+    }
+
+    .button {
+        width: 100%;
+    }
+}

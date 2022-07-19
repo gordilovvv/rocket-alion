@@ -2,27 +2,19 @@ import { sendTokens } from "../web3/wallet/actions/sendTokens";
 import { useWallet } from "../web3/wallet/useWallet";
 import { getBalance } from "../web3/wallet/utils/getBalance";
 import { useAlert } from "../alert/useAlert";
-import { WALLET_CONNECT_ID } from "../web3/wallet/ids";
 import { preloadImages } from "@/utils/image";
 import { subscribeToGame } from "@/api/realtime/subscribers/game";
 import { useRoomsStore } from "@/stores/rooms";
+import { useGamePayment } from "./transaction/payment";
 
 export const GAME_DURATION_MS = import.meta.env.VITE_GAME_DURATION_MS;
 
-// TODO: check
 export async function startGame(id, redirectCallback) {
     const roomsStore = useRoomsStore();
-    const { walletId, address, balance } = useWallet();
+    const gamePayment = useGamePayment();
+    const { address, balance } = useWallet();
 
-    const { alert, showAlert, hideAlert } = useAlert();
-
-    showAlert({
-        view: 'success',
-        text: walletId === WALLET_CONNECT_ID
-            ? 'Confirm sending BNB in ​your wallet app'
-            : 'Confirm sending BNB in metamask window',
-        autoClose: false
-    });
+    gamePayment.setLoading();
 
     const transferTokens = async walletAddress => {
         try {
@@ -33,7 +25,7 @@ export async function startGame(id, redirectCallback) {
                 walletAddress
             );
 
-            alert.text = 'Waiting for game start...';
+            gamePayment.setStarting();
 
             const balanceValue = await getBalance(address.value);
 
@@ -41,10 +33,9 @@ export async function startGame(id, redirectCallback) {
 
             return transaction.transactionHash;
         } catch (error) {
-            showAlert({
-                view: 'danger',
-                text: 'Oops! Something gone wrong...'
-            });
+            console.error(error);
+
+            gamePayment.setError();
 
             return false;
         }
@@ -56,7 +47,7 @@ export async function startGame(id, redirectCallback) {
         transferTokens
     );
 
-    hideAlert();
+    gamePayment.reset();
     redirectCallback?.();
 }
 
