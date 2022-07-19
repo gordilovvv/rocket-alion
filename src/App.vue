@@ -3,6 +3,9 @@ import { computed, useCssModule } from 'vue';
 import { walletAutoConnect } from './services/web3/wallet/actions/autoConnect';
 import { LAYOUTS, DEFAULT_LAYOUT } from './layouts/layouts';
 import { useRoute } from 'vue-router';
+import AlertNotification from './components/alert/AlertNotification.vue';
+import WalletConnectPopup from './components/wallet/connect/popup/WalletConnectPopup.vue';
+import GamePaymentPopup from './components/game/payment/GamePaymentPopup.vue';
 
 const vars = useCssModule('vars');
 
@@ -25,6 +28,10 @@ walletAutoConnect();
         <RouterView />
 
     </Component>
+
+    <AlertNotification />
+    <GamePaymentPopup />
+    <WalletConnectPopup />
 </template>
 
 <style lang="scss">
