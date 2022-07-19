@@ -9,15 +9,18 @@ import { useGamePayment } from "./transaction/payment";
 
 export const GAME_DURATION_MS = import.meta.env.VITE_GAME_DURATION_MS;
 
+// fix
+// https://docs.walletconnect.com/mobile-linking
+
 export async function startGame(id, redirectCallback) {
     const roomsStore = useRoomsStore();
     const gamePayment = useGamePayment();
     const { address, balance } = useWallet();
 
-    gamePayment.setLoading();
-
     const transferTokens = async walletAddress => {
         try {
+            gamePayment.setLoading();
+
             const { bet } = roomsStore.rooms[id];
 
             const transaction = await sendTokens(
