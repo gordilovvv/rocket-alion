@@ -1,8 +1,8 @@
 <script setup>
-import { ref, toRef, watchEffect } from 'vue'
-import { usePopupEscClose } from './hooks/usePopupEscClose';
-import AppPopupWrap from './wrap/AppPopupWrap.vue'
+import { ref, toRef, watchEffect } from 'vue';
+import AppPopupWrap from './wrap/AppPopupWrap.vue';
 import AppPopupHead from './head/AppPopupHead.vue';
+import { usePopupEscClose } from './hooks/usePopupEscClose';
 
 const props = defineProps({
     title: {
@@ -10,6 +10,8 @@ const props = defineProps({
         default: ''
     },
     modelValue: Boolean,
+    hideHeader: Boolean,
+    disableClose: Boolean // disable close by user
 });
 
 const emit = defineEmits({
@@ -23,15 +25,18 @@ watchEffect(() => {
     if (isVisible.value) {
         isOpen.value = true;
     }
-})
+});
 
 const hide = () => {
+    if (props.disableClose)
+        return;
+
     emit('update:modelValue', false);
-}
+};
 
 const close = () => {
     isOpen.value = false;
-}
+};
 
 usePopupEscClose(hide);
 </script>
@@ -44,7 +49,10 @@ usePopupEscClose(hide);
             @close="hide"
             @after-leave="close"
         >
-            <AppPopupHead @close="hide">
+            <AppPopupHead
+                v-if="!hideHeader"
+                @close="hide"
+            >
                 {{ title }}
             </AppPopupHead>
             <slot />
