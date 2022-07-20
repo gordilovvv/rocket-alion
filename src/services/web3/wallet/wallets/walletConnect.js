@@ -1,7 +1,7 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { connectWallet } from '../actions/connect';
 import { WALLET_CONNECT_ID } from '../ids';
-import { ACTIVE_CHAIN_ID, ACTIVE_CHAIN_RPC, addActiveChainRequest } from '../chain';
+import { ACTIVE_CHAIN_ID, ACTIVE_CHAIN_RPC } from '../chain';
 
 let shouldForceModalOpen = false;
 
@@ -29,7 +29,6 @@ export async function connectWalletConnect() {
         }
 
         await provider.enable();
-        await addActiveChainRequest(provider);
 
         connectWallet(provider, WALLET_CONNECT_ID);
     } catch ({ message }) {
