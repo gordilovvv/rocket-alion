@@ -1,7 +1,9 @@
 import { io } from 'socket.io-client';
 import { ref, watchEffect } from 'vue';
 
-export const socket = io(import.meta.env.VITE_SOCKET_URL);
+export const socket = io(import.meta.env.VITE_SOCKET_URL, {
+    transports: ['websocket']
+});
 
 export const messages = ref([]);
 
