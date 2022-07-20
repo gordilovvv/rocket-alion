@@ -94,7 +94,11 @@ const showResults = () => {
     resetGameStorage();
 };
 
-const onDocumentVisibilityChange = () => !document.hidden && autoConnect();
+const onDocumentVisibilityChange = () => {
+    if (!document.hidden && activeStage.value === STAGE_LOBBY) {
+        autoConnect();
+    }
+};
 
 onMounted(() => {
     synchronizeGameStorage(gameStore);
