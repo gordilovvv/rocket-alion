@@ -1,0 +1,241 @@
+.hero {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding-top: 100px;
+    height: 810px;
+    margin-bottom: 330px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: 0;
+        width: 100%;
+        height: 240px;
+        background: linear-gradient(180deg, #08031F 35%, rgba(0, 0, 0, 0) 100%);
+        filter: blur(30px);
+    }
+}
+
+.content {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    color: var(--color-typo-inverse);
+}
+
+.icon {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-family: var(--font-family-title);
+    font-weight: 700;
+    font-size: 90px;
+    line-height: 111px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.description {
+    max-width: 310px;
+    font-family: var(--font-family-text);
+    font-size: var(--text-m-font-size);
+    font-weight: var(--text-m-font-weight);
+    line-height: var(--text-m-line-height);
+    text-align: center;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.button {
+    width: 126px;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, 0);
+    max-width: 1550px;
+    bottom: 0;
+    z-index: -1;
+
+    .planet,
+    .planetXs,
+    .rocket,
+    .stones {
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        box-sizing: border-box;
+    }
+
+    .planet {
+        position: absolute;
+        left: 50%;
+        top: calc(100% - 90px);
+        transform: translate(-50%, 0);
+        width: 1440px;
+        height: 720px;
+        background-image: url('/images/hero/planet.png');
+
+        @include retina2x {
+            background-image: url('/images/hero/planet@2x.png');
+        }
+    }
+
+    .planetXs {
+        position: absolute;
+        background-image: url('/images/hero/planet-xs.png');
+
+        @include retina2x {
+            background-image: url('/images/hero/planet-xs@2x.png');
+        }
+
+        &1 {
+            top: 146px;
+            left: 49px;
+            width: 50px;
+            height: 50px;
+            transform: rotate(117deg);
+        }
+
+        &2 {
+            top: 181px;
+            right: 110px;
+            width: 40px;
+            height: 40px;
+            transform: rotate(-128.5deg);
+        }
+
+        &3 {
+            right: -15px;
+            bottom: 70px;
+            width: 181px;
+            height: 181px;
+            transform: rotate(-51deg);
+        }
+
+        &4 {
+            left: 105px;
+            bottom: 230px;
+            width: 95px;
+            height: 95px;
+            transform: rotate(53deg);
+        }
+    }
+
+    .light {
+        top: -350px;
+        width: 100%;
+        height: 1200px;
+        background-image: url('/images/hero/light.png');
+        background-position: top -350px center;
+        background-repeat: no-repeat;
+        background-size: 1550px 1550px;
+        box-sizing: border-box;
+
+        @include retina2x {
+            background-image: url('/images/hero/light@2x.png');
+        }
+    }
+
+    .rocket {
+        position: absolute;
+
+        &1 {
+            left: 154px;
+            bottom: -150px;
+            width: 720px;
+            height: 392px;
+            background-image: url('/images/hero/rocket-1.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/rocket-1@2x.png');
+            }
+        }
+
+        &2 {
+            bottom: -30px;
+            right: 70px;
+            width: 505px;
+            height: 193px;
+            background-image: url('/images/hero/rocket-2.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/rocket-2@2x.png');
+            }
+        }
+    }
+
+    .stones {
+        position: absolute;
+        filter: grayscale(0.8);
+        opacity: 0.85;
+
+        &1 {
+            width: 500px;
+            height: 500px;
+            top: 0;
+            top: -120px;
+            left: 100px;
+            background-image: url('/images/hero/stones-1.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/stones-1@2x.png');
+            }
+        }
+
+        &2 {
+            top: 106px;
+            right: -60px;
+            width: 427px;
+            height: 392px;
+            background-image: url('/images/hero/stones-2.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/stones-2@2x.png');
+            }
+        }
+
+        &3 {
+            right: 110px;
+            bottom: -30px;
+            width: 212px;
+            height: 225px;
+            background-image: url('/images/hero/stones-3.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/stones-3@2x.png');
+            }
+        }
+
+
+        &4 {
+            left: -85px;
+            bottom: -55px;
+            width: 293px;
+            height: 272px;
+            background-image: url('/images/hero/stones-4.png');
+
+            @include retina2x {
+                background-image: url('/images/hero/stones-4@2x.png');
+            }
+        }
+    }
+}
