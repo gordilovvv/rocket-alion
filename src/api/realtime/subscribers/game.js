@@ -38,6 +38,8 @@ export async function subscribeToGame(playerAddress, gameType, payCallback) {
 
             if (transaction) {
                 sendPayTransaction(transaction);
+            } else {
+                resolve({ ok: false });
             }
         }
     );
@@ -51,7 +53,7 @@ export async function subscribeToGame(playerAddress, gameType, payCallback) {
 
         gameStore.game.players = players;
 
-        resolve();
+        resolve({ ok: true });
     });
 
     wasSubscribed.value = true;

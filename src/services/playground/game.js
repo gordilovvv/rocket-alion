@@ -44,14 +44,16 @@ export async function startGame(id, redirectCallback) {
         }
     };
 
-    await subscribeToGame(
+    const { ok } = await subscribeToGame(
         address.value,
         id,
         transferTokens
     );
 
-    gamePayment.reset();
-    redirectCallback?.();
+    if (ok) {
+        gamePayment.reset();
+        redirectCallback?.();
+    }
 }
 
 export async function autoConnectToGame(id, failCallback) {
