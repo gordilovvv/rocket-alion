@@ -1,0 +1,231 @@
+.about {
+    position: relative;
+    margin-bottom: 160px;
+}
+
+.title {
+    font-family: var(--font-family-title);
+    font-size: var(--text-l-font-size);
+    font-weight: var(--text-l-font-weight);
+    line-height: var(--text-l-line-height);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 120px;
+}
+
+.list {
+    margin-bottom: 60px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    height: 387px;
+    padding: 1px;
+
+    & + .card {
+        margin-top: 60px;
+    }
+
+    &Stroke {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        pointer-events: none;
+
+        &1 {
+            left: 0;
+        }
+
+        &2 {
+            right: 0;
+        }
+    }
+
+    &Wrap {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        flex: auto;
+        height: 100%;
+        padding: 30px;
+        border-radius: 30px;
+        overflow: hidden;
+        transform: translateZ(0);
+    }
+
+    &Content {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        width: 440px;
+        z-index: 2;
+    }
+
+    &Title {
+        font-family: var(--font-family-text);
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 31px;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+
+        span {
+            color: var(--color-success);
+        }
+    }
+
+    &Description {
+        font-family: var(--font-family-text);
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 23px;
+        letter-spacing: -0.01em;
+        text-transform: uppercase;
+    }
+
+    &Image {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        height: calc(100% - 2px);
+
+        img {
+            height: 100%;
+        }
+    }
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+}
+
+.gradient {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+
+    &1 {
+        width: 800px;
+        height: 800px;
+        top: -50px;
+        left: -350px;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(122, 119, 254, 0.125) 0%, rgba(122, 119, 254, 0) 100%);
+    }
+
+    &2 {
+        width: 700px;
+        height: 700px;
+        top: 660px;
+        right: -300px;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(119, 254, 222, 0.1) 0%, rgba(119, 254, 207, 0) 100%);
+    }
+
+    &3 {
+        width: 800px;
+        height: 800px;
+        left: -400px;
+        bottom: -160px;
+        background: radial-gradient(50% 50% at 50% 50%, rgba(122, 119, 254, 0.125) 0%, rgba(122, 119, 254, 0) 100%);
+    }
+}
+
+
+@include max1200 {
+    .card {
+        padding: 0;
+        height: 300px;
+        
+        &Stroke {
+            display: none;
+        }
+
+        &Wrap {
+            border: 1px solid var(--color-project);
+        }
+    }
+}
+
+@include min1001 {
+    .card {
+        &Content {
+            margin-left: 30px;
+        }
+
+        &.inverse &Wrap {
+            flex-flow: row-reverse;
+        }
+    
+        &.inverse &Content {
+            margin-left: 0;
+            margin-right: 30px;
+        }
+    
+        &.inverse &Title,
+        &.inverse &Description {
+            text-align: right;
+        }
+    
+        &.inverse &Image {
+            right: unset;
+            left: 1px;
+        }
+    }
+}
+
+@include max1000 {
+    .card {
+        height: auto;
+
+        & + .card {
+            margin-top: 80px;
+        }
+
+        &Wrap {
+            border: 0;
+            border-bottom: 1px solid var(--color-project);
+            border-radius: 16px;
+        }
+
+        &Wrap {
+            padding-top: 275px;
+        }
+
+        &Image {
+            top: 0;
+            left: 50%;
+            right: unset;
+            transform: translate(-50%, 0);
+            height: 225px;
+        }
+    }
+}
+
+@include max767 {
+    .title {
+        margin-bottom: 60px;
+    }
+
+    .card {
+        margin-left: -16px;
+        margin-right: -16px;
+
+        &Wrap {
+            padding-top: 255px;
+        }
+
+        &Title {
+            font-size: 20px;
+            line-height: 26px;
+            margin-bottom: 20px;
+        }
+
+        &Description {
+            font-size: 16px;
+            line-height: 21px;
+        }
+    }
+}
