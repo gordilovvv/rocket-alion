@@ -1,0 +1,68 @@
+.safety {
+    margin-bottom: 160px;
+}
+
+.title {
+    font-family: var(--font-family-title);
+    font-size: var(--text-l-font-size);
+    font-weight: var(--text-l-font-weight);
+    line-height: var(--text-l-line-height);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 120px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    padding: 30px;
+    background: linear-gradient(38deg, #27184A -34.81%, #08031F 38.69%);
+    border: 1px solid #20133C;
+    border-radius: 16px;
+
+    &Content {
+        position: relative;
+        flex: auto;
+        min-width: 0;
+    }
+
+    &Icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        background-color: #1C1831;
+        border-radius: 86px;
+        margin-bottom: 30px;
+    }
+
+    &Text {
+        font-family: var(--font-family-text);
+        font-size: var(--text-m-font-size);
+        font-weight: var(--text-m-font-weight);
+        line-height: var(--text-m-line-height);
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+    }
+
+    &Stroke {
+        position: absolute;
+        top: 0;
+        height: 100%;
+
+        &Left {
+            left: 0;
+        }
+
+        &Right {
+            right: 0;
+        }
+    }
+}
