@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import { socket } from "../realtime";
+import { messages, socket } from "../realtime";
 import { useGameStore } from "@/stores/game";
 
 export const wasSubscribed = ref(false);
@@ -45,6 +45,8 @@ export async function subscribeToGame(playerAddress, gameType, payCallback) {
     );
 
     socket.on('game', ({ gameType, players }) => {
+        messages.value.push('data from sockets', new Date().getMinutes());
+        
         if (!gameStore.game)
             gameStore.game = {};
 
