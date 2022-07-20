@@ -1,8 +1,7 @@
 <script setup>
 import AppContainer from '@/components/container/AppContainer.vue';
-import VButton from '@/components/common/button/VButton.vue';
+import PlayButton from '@/components/play/PlayButton';
 import VIcon from '@/components/common/icon/VIcon.vue';
-import config from '@/config';
 </script>
 
 <template>
@@ -37,12 +36,7 @@ import config from '@/config';
                 <h1 :class="styles.title">Rocket alion</h1>
                 <h3 :class="styles.description">p2e game with 75% chance of winning</h3>
 
-                <VButton
-                    :href="config.appUrl"
-                    :class="styles.button"
-                >
-                    PLAY
-                </VButton>
+                <PlayButton />
             </AppContainer>
         </div>
 
