@@ -205,8 +205,12 @@
 }
 
 @include max767 {
+    .about {
+        margin-bottom: 120px;
+    }
+
     .title {
-        margin-bottom: 60px;
+        margin-bottom: 80px;
     }
 
     .card {
