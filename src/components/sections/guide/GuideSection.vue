@@ -22,7 +22,10 @@ const getImageSrcSet = step => {
 </script>
 
 <template>
-    <div :class="styles.guide">
+    <div
+        id="guide"
+        :class="styles.guide"
+    >
         <AppContainer>
             
             <div :class="styles.title">

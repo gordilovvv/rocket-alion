@@ -26,12 +26,15 @@ const steps = [
 ];
 
 const getImageSrcSet = step => {
-    return `/images/guide/${ step }.png 1x, /images/guide/${ step }@2x.png 2x, /images/guide/${ step }@3x.png 3x`;
+    return `/images/about/${ step }.png 1x, /images/about/${ step }@2x.png 2x, /images/about/${ step }@3x.png 3x`;
 };
 </script>
 
 <template>
-    <div :class="styles.about">
+    <div
+        id="about"
+        :class="styles.about"
+    >
         <div :class="[styles.gradient, styles.gradient1]" />
         <div :class="[styles.gradient, styles.gradient2]" />
         <div :class="[styles.gradient, styles.gradient3]" />

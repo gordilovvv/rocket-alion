@@ -19,7 +19,10 @@ const cards = [
 </script>
 
 <template>
-    <div :class="styles.safety">
+    <div
+        id="safety"
+        :class="styles.safety"
+    >
         <AppContainer>
 
             <div :class="styles.title">
