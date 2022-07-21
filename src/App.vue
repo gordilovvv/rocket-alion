@@ -4,10 +4,12 @@ import TheHeader from './components/header/TheHeader.vue';
 
 const vars = useCssModule('vars');
 
-document.body.classList.add(
-    vars.colors,
-    vars.decorations
-);
+if (typeof window !== 'undefined') {
+    document.body.classList.add(
+        vars.colors,
+        vars.decorations
+    );
+}
 </script>
 
 <template>
