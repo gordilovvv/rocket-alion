@@ -12,9 +12,15 @@
     --text-m-line-height: 1.3;
 }
 
+@include max1000 {
+    .decorations {
+        --text-l-font-size: 48px;
+    }
+}
+
 @include max767 {
     .decorations {
-        --title-font-size: 30px;
-        --title-line-height: 37px;
+        --text-m-font-size: 16px;
+        --text-l-font-size: 38px;
     }
 }
