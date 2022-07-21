@@ -55,3 +55,40 @@
         letter-spacing: -0.03em;
     }
 }
+
+@include max1200 {
+    .list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@include max767 {
+    .guide {
+        margin-bottom: 120px;
+    }
+
+    .title {
+        margin-bottom: 80px;
+    }
+
+    .list {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+
+        &Image {
+            height: 130px;
+            margin-bottom: 30px;
+
+            img {
+                height: 130px;
+            }
+        }
+
+        &Text {
+            font-size: 20px;
+        }
+    }
+}

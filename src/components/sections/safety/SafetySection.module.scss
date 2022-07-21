@@ -68,6 +68,20 @@
 }
 
 @include max1000 {
+    .list {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        border: 1px solid #472F6B;
+
+        &Stroke {
+            display: none;
+        }
+    }
+}
+
+@include max767 {
     .safety {
         margin-bottom: 120px;
     }
@@ -76,18 +90,9 @@
         margin-bottom: 80px;
     }
 
-    .list {
-        grid-template-columns: 1fr;
-    }
-
     .card {
         padding: 20px;
-        border: 1px solid #472F6B;
-
-        &Stroke {
-            display: none;
-        }
-
+        
         &Icon {
             width: 60px;
             height: 60px;
