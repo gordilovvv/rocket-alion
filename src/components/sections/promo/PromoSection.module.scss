@@ -47,6 +47,7 @@
 }
 
 .title {
+    max-width: 720px;
     font-family: var(--font-family-title);
     font-size: var(--text-l-font-size);
     font-weight: var(--text-l-font-weight);
@@ -58,4 +59,62 @@
 
 .button {
     width: 190px;
+}
+
+@include max1200 {
+    .promo {
+        padding-top: 690px;
+    }
+
+    .background {
+        height: 800px;
+
+        &Image {
+            width: 1000px;
+            height: 585px;
+        }
+    }    
+}
+
+@include max1000 {
+    .promo {
+        padding-top: 500px;
+    }
+
+    .title {
+        max-width: 630px;
+    }
+
+    .background {
+        height: 590px;
+        border-radius: 16px;
+
+        &Image {
+            top: 40px;
+            width: 740px;
+            height: 433px;
+        }
+    }
+}
+
+@include max767 {
+    .promo {
+        padding-top: 396px;
+        width: 100%;
+        margin-bottom: 80px;
+    }
+
+    .title {
+        max-width: 330px;
+    }
+
+    .background {
+        height: 520px;
+
+        &Image {
+            top: 30px;
+            width: 592px;
+            height: 346px;
+        }
+    }
 }

@@ -1,7 +1,6 @@
 <script setup>
 import VButton from '@/components/common/button/VButton.vue';
 import config from '@/config';
-import VIcon from '@/components/common/icon/VIcon.vue';
 </script>
 
 <template>
@@ -12,7 +11,7 @@ import VIcon from '@/components/common/icon/VIcon.vue';
 
         <div :class="styles.content">
             <div :class="styles.title">
-                Play rocket allion<br /> now and win!
+                Play rocket alion now and win!
             </div>
         
             <VButton
