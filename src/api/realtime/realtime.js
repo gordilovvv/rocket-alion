@@ -7,6 +7,10 @@ export const socket = io(import.meta.env.VITE_SOCKET_URL, {
     reconnectionAttempts: 5
 });
 
+socket.io.on('error', error => {
+    console.log(error);
+});
+
 function sendMessageToSocket(type, payload) {
     socket.emit(type, payload);
 }
