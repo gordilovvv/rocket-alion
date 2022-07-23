@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client';
+import { getSocketId } from './id';
 
 export const socket = io(import.meta.env.VITE_SOCKET_URL, {
+    query: `CID=${ getSocketId() }`,
     useNativeTimers: true,
     reconnectionAttempts: 5
 });
