@@ -94,30 +94,14 @@ const showResults = () => {
     resetGameStorage();
 };
 
-const onDocumentVisibilityChange = () => {
-    if (!document.hidden && activeStage.value === STAGE_LOBBY) {
-        autoConnect();
-    }
-};
-
 onMounted(() => {
     synchronizeGameStorage(gameStore);
 
     autoConnect();
-
-    document.addEventListener(
-        'visibilitychange',
-        onDocumentVisibilityChange
-    );
 });
 
 onUnmounted(() => {
     resetGameStorage();
-
-    document.removeEventListener(
-        'visibilitychange',
-        onDocumentVisibilityChange
-    );
 });
 </script>
 
