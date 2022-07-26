@@ -5,7 +5,7 @@
 
 .head {
     display: grid;
-    grid-template-columns: 22% 1fr 17% 1fr;
+    grid-template-columns: 24% 1fr 17% 1fr;
     gap: 15px;
     padding: 0 30px;
     margin-bottom: 30px;
@@ -58,13 +58,13 @@
 
 @include max1200 {
     .head {
-        grid-template-columns: 20% 1fr 15% 1fr;
+        grid-template-columns: 22% 1fr 15% 1fr;
     }
 }
 
 @include max1000 {
     .head {
-        grid-template-columns: 20% 1fr 20%;
+        grid-template-columns: 130px 1fr 20%;
     }
 
     .col {
@@ -99,11 +99,5 @@
             font-size: 16px;
             line-height: 20px;
         }
-    }
-}
-
-@include max500 {
-    .head {
-        grid-template-columns: 30% 1fr 30%;
     }
 }

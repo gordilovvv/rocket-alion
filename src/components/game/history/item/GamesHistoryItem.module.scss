@@ -1,6 +1,6 @@
 .game {
     display: grid;
-    grid-template-columns: 22% 1fr 17% 1fr;
+    grid-template-columns: 24% 1fr 17% 1fr;
     gap: 15px;
     align-items: baseline;
     padding: 28px 30px;
@@ -106,13 +106,13 @@
 
 @include max1200 {
     .game {
-        grid-template-columns: 20% 1fr 15% 1fr;
+        grid-template-columns: 22% 1fr 15% 1fr;
     }
 }
 
 @include max1000 {
     .game {
-        grid-template-columns: 20% 1fr 20%;
+        grid-template-columns: 130px 1fr 20%;
     }
 
     .amount {
@@ -150,7 +150,7 @@
     }
 
     .id {
-        &Link {
+        &Wrap {
             color: var(--color-typo-soft);
             font-size: 14px;
             padding: 0;
@@ -176,11 +176,5 @@
 
     .time {
         font-size: 14px;
-    }
-}
-
-@include max500 {
-    .game {
-        grid-template-columns: 30% 1fr 30%;
     }
 }
