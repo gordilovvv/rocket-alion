@@ -3,12 +3,20 @@ import { getSocketId } from './id';
 
 export const socket = io(import.meta.env.VITE_SOCKET_URL, {
     query: `CID=${ getSocketId() }`,
-    useNativeTimers: true,
-    reconnectionAttempts: 5
+    transports: ['websocket'],
+    useNativeTimers: true
 });
 
-socket.io.on('error', error => {
-    console.log(error);
+socket.on('connect', () => {
+    console.log('connect');
+});
+
+socket.on('disconnect', () => {
+    console.log('disconnect');
+});
+
+socket.on('reconnect', () => {
+    console.log('reconnect');
 });
 
 function sendMessageToSocket(type, payload) {
