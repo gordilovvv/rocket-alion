@@ -1,9 +1,9 @@
-import { ellipseAddress } from "@/utils/address";
-import { onMounted, onUnmounted, reactive, ref, unref } from "vue";
+import { onMounted, reactive, ref } from 'vue';
+import { useWallet } from "@/services/web3/wallet/useWallet";
 import { requestScopedDataFromSocket } from "../realtime";
 
-export function usePlayerStatistic(address) {
-    const socketsCallbacks = new Set();
+export function usePlayerStatistic() {
+    const { address } = useWallet();
 
     const isLoadingStats = ref(true);
     const isLoadingHistory = ref(true);
@@ -16,9 +16,9 @@ export function usePlayerStatistic(address) {
     const gamesHistory = ref([]);
 
     onMounted(() => {
-        const payload = { address: unref(address) };
+        const payload = { address: address.value };
 
-        socketsCallbacks.add(requestScopedDataFromSocket(
+        requestScopedDataFromSocket(
             'playerStatsCount',
             payload,
             ({ totalWonSum: totalWon, gamesWon, gamesLose }) => {
@@ -28,25 +28,18 @@ export function usePlayerStatistic(address) {
                 
                 isLoadingStats.value = false;
             }
-        ));
+        );
         
-        socketsCallbacks.add(requestScopedDataFromSocket(
+        requestScopedDataFromSocket(
             'playerStats',
             payload,
             games => {
                 // TODO: remove this
-                gamesHistory.value = games.map(game => ({
-                    id: ellipseAddress(game.ID),
-                    betAmount: 0,
-                    winningAmount: 0,
-                    timestamp: 0
-                }));
+                gamesHistory.value = games;
                 isLoadingHistory.value = false;
             }
-        ));
+        );
     });
-
-    onUnmounted(() => socketsCallbacks.forEach(callback => callback()));
 
     return {
         stats,

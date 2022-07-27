@@ -4,6 +4,7 @@ import ChainIcon from '@/components/general/chain/ChainIcon.vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
 import { timestampToDate, timestampToTime } from '@/utils/date';
 import { formatCurrency } from '@/utils/currency';
+import { ellipseAddress } from '@/utils/address';
 
 const props = defineProps({
     id: {
@@ -19,9 +20,13 @@ const props = defineProps({
         required: true
     },
     timestamp: {
-        type: Number,
+        type: [Number, String],
         required: true
     }
+});
+
+const shortId = computed(() => {
+    return ellipseAddress(props.id);
 });
 
 const gameDate = computed(() => {
@@ -39,7 +44,7 @@ const gameTime = computed(() => {
         <div :class="styles.id">
             <div :class="styles.idWrap">
                 <div :class="styles.idNumber">
-                    {{ id }}
+                    {{ shortId }}
                 </div>
 
                 <div :class="styles.idIcon">

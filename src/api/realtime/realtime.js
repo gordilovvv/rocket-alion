@@ -1,8 +1,22 @@
 import { io } from 'socket.io-client';
+import { getSocketId } from './id';
 
 export const socket = io(import.meta.env.VITE_SOCKET_URL, {
-    useNativeTimers: true,
-    reconnectionAttempts: 5
+    query: `CID=${ getSocketId() }`,
+    transports: ['websocket'],
+    useNativeTimers: true
+});
+
+socket.on('connect', () => {
+    console.log('connect');
+});
+
+socket.on('disconnect', () => {
+    console.log('disconnect');
+});
+
+socket.on('reconnect', () => {
+    console.log('reconnect');
 });
 
 function sendMessageToSocket(type, payload) {

@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { subscribeToSocketScope, unsubscribeFromSocketScope } from '../realtime';
 
 export function useRecentWinnings() {
@@ -7,20 +7,18 @@ export function useRecentWinnings() {
     const isLoading = ref(true);
 
     const subscribe = () => {
-        subscribeToSocketScope('recentWinnings', ({ games }) => {
+        subscribeToSocketScope('recentWinnings', games => {
             winnings.value = games;
+
+            if (isLoading.value) {
+                isLoading.value = false;
+            }
         });
     };
 
     const unsubscribe = () => {
         unsubscribeFromSocketScope('recentWinnings');
     };
-
-    watch(winnings, (_, prevWinnings) => {
-        if (prevWinnings.length === 0) {
-            isLoading.value = false;
-        }
-    });
 
     onMounted(subscribe);
 
