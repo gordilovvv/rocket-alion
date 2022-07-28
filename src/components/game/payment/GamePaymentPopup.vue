@@ -49,7 +49,7 @@ onUnmounted(() => clearInterval(interval));
     <AppPopup
         :model-value="isOpen"
         hide-header
-        close-disabled
+        disable-close
     >
         <div
             v-if="gamePaymentState.error"
