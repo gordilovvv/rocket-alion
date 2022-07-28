@@ -1,4 +1,4 @@
-import { useWalletState } from '../useState'
+import { useWalletState } from '../useState';
 
 export async function logoutFromWallet() {
     const { web3, resetState } = useWalletState();

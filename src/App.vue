@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router';
 import { useSocketLoading } from '@/api/realtime/useSocketLoading';
 import { LAYOUTS, DEFAULT_LAYOUT } from './layouts/layouts';
 import { walletAutoConnect } from './services/web3/wallet/actions/autoConnect';
+import { chainError } from './services/web3/wallet/chain';
 
 const vars = useCssModule('vars');
 
@@ -37,6 +38,12 @@ walletAutoConnect();
         v-else
         :class="styles.content"
     >
+        <div
+            v-if="chainError"
+            :class="styles.error"
+        >
+            Please, change network in your wallet for playing the game. We support only BSC chain.
+        </div>
         <Component :is="layout">
 
             <RouterView />
@@ -63,6 +70,21 @@ walletAutoConnect();
 .loader {
     align-items: center;
     justify-content: center;
+}
+
+.error {
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-family-text);
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 0 0 16px 16px;
+    background: rgba(209, 59, 68, 0.3);
+    backdrop-filter: blur(30px);
+
+    @include max767 {
+        font-style: 14px;
+    }
 }
 </style>
 
