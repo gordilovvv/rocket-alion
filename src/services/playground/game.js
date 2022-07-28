@@ -98,7 +98,7 @@ export function startGame(id, {
                 setTimeout(() => {
                     loadGame();
                     updateBalance();
-                }, 400);
+                }, 5000); // TODO: do this on socket event
             }
         });
     } catch (error) {
