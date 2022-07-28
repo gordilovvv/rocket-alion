@@ -22,13 +22,13 @@ export function startGame(id, {
 
     // effects
     const setLoadingState = () => {
-        onLoad();
+        onLoad?.();
         gamePayment.setLoading();
         gameStore.isGameStarting = true;
     };
 
     const setErrorState = error => {
-        onLoadEnd();
+        onLoadEnd?.();
         gamePayment.setError();
         gameStore.isGameStarting = false;
 
@@ -36,8 +36,8 @@ export function startGame(id, {
     };
 
     const setStartedState = () => {
-        onStart();
-        onLoadEnd();
+        onStart?.();
+        onLoadEnd?.();
         gamePayment.reset();
         gameStore.isGameStarting = false;
     };
