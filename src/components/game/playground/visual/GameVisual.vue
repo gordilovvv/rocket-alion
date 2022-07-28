@@ -3,8 +3,8 @@ import { ref, watch, watchEffect  } from 'vue';
 import GameVisualRocket from './rocket/GameVisualRocket.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { preparePlayersForRockets, isPlayerWinner } from '@/services/playground/game';
+import { getFlyDuration } from '@/services/playground/rocket';
 import { formatCurrency } from '@/utils/currency';
-import { randomNumber } from '@/utils/random';
 
 const props = defineProps({
     prizeSum: {
@@ -51,7 +51,7 @@ const startRocketsFly = () => {
         const isLooser = !isPlayerWinner(props.players[index].resultAmount);
 
         let finalY;
-        let flyDuration;
+        let flyDuration = getFlyDuration(isLooser);
 
         finalY = containerEl.value.offsetHeight - (rocketsRefs.value[0].rocketEl.offsetHeight + offset);
 
@@ -60,9 +60,6 @@ const startRocketsFly = () => {
                 ? finishEl.value.offsetHeight * 2
                 : (Math.random() > 0.5 ? finishEl.value.offsetHeight / 2 : finishEl.value.offsetHeight / 3)
             );
-            flyDuration = window.innerWidth <= 767 ? randomNumber(900, 1900) : randomNumber(1900, 2600);
-        } else {
-            flyDuration = window.innerWidth <= 767 ? randomNumber(2000, 3500) : randomNumber(2000, 4000);
         }
 
         rocket.startFly(finalY, flyDuration).then(() => {
@@ -128,6 +125,7 @@ watchEffect(async () => {
                     ref="rocketsRefs"
                     :num="num"
                     :address="playerAddress"
+                    :current-player="playerAddress === address"
                     :class="styles.rocket"
                     @after-appear="visibleRockets++"
                 />
@@ -140,6 +138,7 @@ watchEffect(async () => {
                     ref="rocketsRefs"
                     :num="num"
                     :address="playerAddress"
+                    :current-player="playerAddress === address"
                     :class="styles.rocket"
                     @after-appear="visibleRockets++"
                 />

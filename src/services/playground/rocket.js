@@ -1,3 +1,4 @@
+import { randomNumber } from "@/utils/random";
 import { setTranslate3d } from "@/utils/style";
 
 export const ROCKET_TRAIL_HEIGHT = 300;
@@ -111,5 +112,19 @@ export function rocketAnimation() {
         if (animationFrame) {
             cancelAnimationFrame(animationFrame);
         }
+    }
+}
+
+export function getFlyDuration(looser) {
+    const isMobile = window.innerWidth <= 767;
+
+    if (isMobile) {
+        return looser
+            ? randomNumber(900, 1900)
+            : randomNumber(2000, 3500);
+    } else {
+        return looser
+            ? randomNumber(1900, 2600)
+            : randomNumber(2000, 4000);
     }
 }
