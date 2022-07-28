@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import RoomsView from '@/views/rooms/RoomsView.vue';
 import { EMPTY_LAYOUT, GAME_LAYOUT } from '@/layouts/layouts';
 import { useWallet } from '@/services/web3/wallet/useWallet';
+import { useRoomsStore } from '@/stores/rooms';
+import { getRooms } from '@/api/realtime/repositories/rooms';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +50,12 @@ const SECURE_PAGES = [
 router.beforeEach(async to => {
     const { isConnected } = useWallet();
     const connectRequired = SECURE_PAGES.includes(to.path);
+
+    const roomsStore = useRoomsStore();
+
+    if (!roomsStore.rooms || to.path === '/') {
+        roomsStore.rooms = await getRooms();
+    }
 
     if (connectRequired && !isConnected.value) {
         return '/';

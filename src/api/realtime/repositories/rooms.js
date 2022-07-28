@@ -19,3 +19,26 @@ export function useRooms() {
         isLoading
     };
 }
+
+export async function getRooms() {
+    const rooms = await new Promise(resolve => {
+        requestScopedDataFromSocket(
+            'gameType',
+            {},
+            rooms => {
+                const list = rooms.reduce((obj, { id, limitPlayers, ...room }) => {
+                    obj[id] = {
+                        ...room,
+                        playersCapacity: limitPlayers
+                    };
+
+                    return obj;
+                }, {});
+
+                resolve(list);
+            }
+        );
+    });
+
+    return rooms;
+}

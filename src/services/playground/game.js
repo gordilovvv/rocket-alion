@@ -1,78 +1,133 @@
 import { sendTokens } from "../web3/wallet/actions/sendTokens";
 import { useWallet } from "../web3/wallet/useWallet";
-import { getBalance } from "../web3/wallet/utils/getBalance";
+import { updateBalance } from "../web3/wallet/utils/getBalance";
 import { useAlert } from "../alert/useAlert";
 import { preloadImages } from "@/utils/image";
-import { subscribeToGame } from "@/api/realtime/subscribers/game";
+import { subscribeToGame, payForGame } from "@/api/realtime/subscribers/game";
 import { useRoomsStore } from "@/stores/rooms";
 import { useGamePayment } from "./transaction/payment";
+import { useGameStore } from "@/stores/game";
+import { openWalletConnectionPopup } from "../web3/wallet/popup/actions";
+import { ref, watchEffect } from "vue";
 
-export const GAME_DURATION_MS = import.meta.env.VITE_GAME_DURATION_MS;
-
-// fix
-// https://docs.walletconnect.com/mobile-linking
-
-export async function startGame(id, redirectCallback) {
+export function startGame(id, {
+    onStart,
+    onLoad,
+    onLoadEnd
+}) {
+    const gameStore = useGameStore();
     const roomsStore = useRoomsStore();
     const gamePayment = useGamePayment();
-    const { address, balance } = useWallet();
+    const { address, isConnected } = useWallet();
 
-    const transferTokens = async walletAddress => {
-        try {
-            gamePayment.setLoading();
-
-            const { bet } = roomsStore.rooms[id];
-
-            const transaction = await sendTokens(
-                bet,
-                walletAddress
-            );
-
-            gamePayment.setStarting();
-
-            const balanceValue = await getBalance(address.value);
-
-            balance.value = balanceValue;
-
-            return transaction.transactionHash;
-        } catch (error) {
-            console.error(error);
-
-            gamePayment.setError();
-
-            return false;
-        }
+    // effects
+    const setLoadingState = () => {
+        onLoad();
+        gamePayment.setLoading();
+        gameStore.isGameStarting = true;
     };
 
-    const { ok } = await subscribeToGame(
-        address.value,
-        id,
-        transferTokens
-    );
+    const setErrorState = error => {
+        onLoadEnd();
+        gamePayment.setError();
+        gameStore.isGameStarting = false;
 
-    if (ok) {
+        console.error(error);
+    };
+
+    const setStartedState = () => {
+        onStart();
+        onLoadEnd();
         gamePayment.reset();
-        redirectCallback?.();
+        gameStore.isGameStarting = false;
+    };
+
+    // logic
+    try {
+        // if no connected wallet
+        if (!isConnected.value)
+            return openWalletConnectionPopup();
+
+        // is game starting already
+        if (gameStore.isGameStarting)
+            throw new Error('Game is staring! You cant start 2 games at one time.');
+
+        // cal loading effect
+        setLoadingState();
+
+        let stopHashWatcher;
+
+        const txHash = ref('');
+        const { bet, gameWallet, paid = false } = roomsStore.rooms[id];
+
+        const loadGame = () => {
+            gamePayment.setStarting();
+
+            subscribeToGame({
+                playerAddress: address.value,
+                gameType: id,
+                onGameStart: setStartedState,
+                onError: error => setErrorState(error)
+            });
+        };
+
+        // if paid - start immediately
+        if (paid)
+            return loadGame();
+
+        // else pay for game ad first
+        sendTokens(
+            bet,
+            gameWallet,
+            hash => txHash.value = hash,
+            error => setErrorState(error)
+        );
+
+        stopHashWatcher = watchEffect(() => {
+            // when tx is sent and we got tx hash
+            if (txHash.value) {
+                stopHashWatcher();
+
+                payForGame(
+                    txHash.value,
+                    address.value,
+                    id
+                );
+
+                // timeout ???
+                setTimeout(() => {
+                    loadGame();
+                    updateBalance();
+                }, 400);
+            }
+        });
+    } catch (error) {
+        setErrorState(error);
     }
 }
 
 export async function autoConnectToGame(id, failCallback) {
-    // if (wasSubscribed.value)
-    //     return;
-
     const { address } = useWallet();
     const { showAlert } = useAlert();
 
-    await subscribeToGame(
-        address.value,
-        id,
-        () => {
-            failCallback?.();
+    subscribeToGame(
+        {
+            playerAddress: address.value,
+            gameType: id,
+            onError: () => {
+                failCallback?.();
 
-            showAlert({
-                view: 'danger',
-                text: 'You are not in the game!'
-            });
+                showAlert({
+                    view: 'danger',
+                    text: 'You are not in the game!'
+                });
+            },
+            onGameStart: () => {
+                showAlert({
+                    view: 'success',
+                    text: 'You are connected to game!'
+                });
+            }
         }
     );
 }

@@ -51,8 +51,6 @@ const rocketSrcset = computed(() => {
 
 const gameStore = useGameStore();
 const isCurrentGameStarting = ref(false);
-// TODO: check this. Maybe we dont need to call open popup func
-const { isConnected, openWalletConnectionPopup } = useWallet();
 
 const isButtonLoading = computed(() => {
     return isCurrentGameStarting.value;
@@ -62,6 +60,8 @@ const isButtonDisabled = computed(() => {
     return !isButtonLoading.value && gameStore.isGameStarting;
 });
 
+const { isConnected } = useWallet();
+
 const buttonText = computed(() => {
     return isConnected.value
         ? 'Play'
@@ -70,20 +70,11 @@ const buttonText = computed(() => {
 
 const router = useRouter();
 
-const play = async () => {
-    if (gameStore.isGameStarting)
-        return;
-        
-    if (isConnected.value) {
-        gameStore.isGameStarting = isCurrentGameStarting.value = true;
-
-        await startGame(props.id, () => router.push('/game'));
-        
-        gameStore.isGameStarting = isCurrentGameStarting.value = false;
-    } else {
-        openWalletConnectionPopup();
-    }
-};
+const play = () => startGame(props.id, {
+    onStart: () => router.push('/game'),
+    onLoad: () => isCurrentGameStarting.value = true,
+    onLoadEnd: () => isCurrentGameStarting.value = false
+});
 </script>
 
 <template>

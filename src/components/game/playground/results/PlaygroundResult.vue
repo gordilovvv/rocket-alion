@@ -5,7 +5,6 @@ import VButton from '@/components/common/button/VButton.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { startGame } from '@/services/playground/game';
 import { ellipseAddress } from '@/utils/address';
-import { useGameStore } from '@/stores/game';
 
 const props = defineProps({
     gameId: {
@@ -29,7 +28,6 @@ const props = defineProps({
 });
 
 const { address } = useWallet();
-const gameStore = useGameStore();
 const isLoadingRestart = ref(false);
 
 const allPlayers = computed(() => {
@@ -74,13 +72,10 @@ const getPlayerText = playerAddress => {
     return ellipseAddress(playerAddress);
 };
 
-const restart = async () => {
-    isLoadingRestart.value = gameStore.isGameStarting = true;
-
-    await startGame(props.gameId);
-
-    isLoadingRestart.value = gameStore.isGameStarting = false;
-};
+const restart = () => startGame(props.gameId, {
+    onLoad: () => isLoadingRestart.value = true,
+    onLoadEnd: () => isLoadingRestart.value = false
+});
 </script>
 
 <template>

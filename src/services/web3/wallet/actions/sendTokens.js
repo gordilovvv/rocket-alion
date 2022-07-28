@@ -1,16 +1,25 @@
 import { useWallet } from "../useWallet";
 import Web3 from "web3";
 
-export async function sendTokens(amount, to) {
+export function sendTokens(amount, to, onSuccess, onError) {
     const { address, web3 } = useWallet();
 
-    const weiAmount = Web3.utils.toWei(amount.toString(), 'ether');
-
-    const tx = await web3.value.eth.sendTransaction({
+    const transaction = {
         to,
         from: address.value,
-        value: weiAmount
-    });
+        value: Web3.utils.toWei(amount.toString(), 'ether')
+    };
 
-    return tx;
+    const onSendTx = (error, hash) => {
+        if (error) {
+            onError(error);
+        } else {
+            onSuccess(hash);
+        }
+    };
+
+    web3.value.eth.sendTransaction(
+        transaction,
+        onSendTx
+    );
 }
