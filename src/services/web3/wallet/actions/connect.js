@@ -1,11 +1,7 @@
 import Web3 from 'web3';
-
 import { useWalletState } from '../useState';
-import { ACTIVE_CHAIN_ID } from '../chain';
-
 import { logoutFromWallet } from './logout';
 import { getBalance } from '../utils/getBalance';
-
 import { closeWalletConnectionPopup } from '../popup/actions';
 import { isWalletConnectionPopupOpened } from '../popup/state';
 
@@ -13,6 +9,7 @@ export async function connectWallet(provider, id) {
     const {
         web3,
         walletId,
+        chainId,
         address,
         balance,
         isConnected,
@@ -27,23 +24,28 @@ export async function connectWallet(provider, id) {
         return logoutFromWallet();
 
     const ether = await getBalance(account);
+    const chain = await web3.value.eth.getChainId();
 
     walletId.value = id;
+    chainId.value = chain;
     address.value = account;
     balance.value = ether;
     isConnected.value = true;
 
-    subscribeOnProviderEvents(provider);
+    subscribeOnProviderEvents(provider, chainId);
 
     if (isWalletConnectionPopupOpened) {
         closeWalletConnectionPopup();
     }
 }
 
-function subscribeOnProviderEvents(provider) {
-    provider?.on('disconnect', () => logoutFromWallet());
+function subscribeOnProviderEvents(provider, chainId) {
+    if (!provider.on)
+        return;
 
-    provider?.on('accountsChanged', async ([ account ]) => {
+    provider.on('disconnect', () => logoutFromWallet());
+
+    provider.on('accountsChanged', async ([ account ]) => {
         // If no account its meaning that wallet is disconnect
         if (!account) {
             alert('Metamask was disconnected');
@@ -54,22 +56,10 @@ function subscribeOnProviderEvents(provider) {
         const { address, balance } = useWalletState();
 
         address.value = account;
-        balance.value = await getBalance();
+        balance.value = await getBalance(account);
     });
 
-    provider?.on('chainChanged', async chainId => {
-        if (chainId === ACTIVE_CHAIN_ID)
-            return;
-
-        // TODO: error
-        console.error(`${ chainId } - is unsupported chain!`);
+    provider.on('chainChanged', async id => {
+        chainId.value = id;
     });
-  
-    // TODO: check this
-    // provider.on("networkChanged", async (networkId: number) => {
-    //     const { web3 } = this.state;
-    //     const chainId = await web3.eth.chainId();
-    //     await this.setState({ chainId, networkId });
-    //     await this.getAccountAssets();
-    // });
 }

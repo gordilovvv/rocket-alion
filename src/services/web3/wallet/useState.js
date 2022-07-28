@@ -1,11 +1,13 @@
 import { shallowReactive, toRefs, watchEffect } from 'vue';
 import { ls } from '@/utils/localStorage';
+import Web3 from 'web3';
 
 export const WALLET_STATE_LS = 'active-wallet';
 
 const state = shallowReactive({
-    web3: null,
+    web3: new Web3(),
     walletId: '',
+    chainId: 0,
     address: '',
     balance: 0,
     isConnected: false
@@ -14,12 +16,14 @@ const state = shallowReactive({
 if (ls.has(WALLET_STATE_LS)) {
     const {
         walletId,
+        chainId,
         address,
         balance,
         isConnected
     } = ls.get(WALLET_STATE_LS);
 
     state.walletId = walletId;
+    state.chainId = chainId;
     state.address = address;
     state.balance = balance;
     state.isConnected = isConnected;
@@ -27,6 +31,7 @@ if (ls.has(WALLET_STATE_LS)) {
 
 watchEffect(() => ls.set(WALLET_STATE_LS, {
     walletId: state.walletId,
+    chainId: state.chainId,
     address: state.address,
     balance: state.balance,
     isConnected: state.isConnected
