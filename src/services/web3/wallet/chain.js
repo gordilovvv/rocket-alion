@@ -1,3 +1,6 @@
+import { computed } from "vue";
+import { useWallet } from "./useWallet";
+
 const BscMainnet = {
     id: 56,
     rpc: 'https://bsc-dataseed1.binance.org/',
@@ -77,3 +80,9 @@ export async function addActiveChainRequest(provider) {
         ]
     });
 }
+
+const { chainId, isConnected } = useWallet();
+
+export const chainError = computed(() => {
+    return isConnected.value && ACTIVE_CHAIN_ID !== chainId.value;
+});
