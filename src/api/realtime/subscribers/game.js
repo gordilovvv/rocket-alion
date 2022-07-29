@@ -76,7 +76,7 @@ export function subscribeToGame({ playerAddress, gameType, onGameStart, onError 
         }
     );
 
-    socket.on('game', ({ gameType, players, error }) => {
+    socket.on('game', ({ gameType, players, close = false, error }) => {
         if (error)
             return onError?.(error);
 
@@ -87,6 +87,12 @@ export function subscribeToGame({ playerAddress, gameType, onGameStart, onError 
             gameStore.game.id = gameType;
 
         gameStore.game.players = players;
+
+        // close prop uses for:
+        // when user went offline and missed all updates from socket we have to show him results of game
+        if (close) {
+            gameStore.game.close = close;
+        }
 
         if (!gameStarted) {
             gameStarted = true;
