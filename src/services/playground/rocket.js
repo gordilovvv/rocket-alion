@@ -120,11 +120,11 @@ export function getFlyDuration(looser) {
 
     if (isMobile) {
         return looser
-            ? randomNumber(900, 1900)
-            : randomNumber(2000, 3500);
+            ? randomNumber(4500, 6000)
+            : randomNumber(6000, 8000);
     } else {
         return looser
-            ? randomNumber(1900, 2600)
-            : randomNumber(2000, 4000);
+            ? randomNumber(5500, 7000)
+            : randomNumber(7000, 9000);
     }
 }
