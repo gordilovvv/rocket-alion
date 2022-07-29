@@ -46,9 +46,11 @@ watchEffect(() => {
     if (gameStore.game.players[0]?.resultAmount === undefined) {
         activeStage.value = STAGE_LOBBY;
     } else {
-        activeStage.value = gameStore.game.close
-            ? STAGE_RESULTS
-            : STAGE_VISUAL;
+        if (gameStore.game.close) {
+            return showResults();
+        } else {
+            activeStage.value = STAGE_VISUAL;
+        }
     }
 });
 
