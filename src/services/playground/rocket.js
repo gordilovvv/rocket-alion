@@ -116,15 +116,19 @@ export function rocketAnimation() {
 }
 
 export function getFlyDuration(looser) {
-    const isMobile = window.innerWidth <= 767;
+    // const isMobile = window.innerWidth <= 767;
 
-    if (isMobile) {
-        return looser
-            ? randomNumber(4500, 6000)
-            : randomNumber(6000, 8000);
-    } else {
-        return looser
-            ? randomNumber(5500, 7000)
-            : randomNumber(7000, 9000);
-    }
+    // if (isMobile) {
+    //     return looser
+    //         ? randomNumber(4500, 6000)
+    //         : randomNumber(6000, 8000);
+    // } else {
+    //     return looser
+    //         ? randomNumber(5500, 7000)
+    //         : randomNumber(7000, 9000);
+    // }
+
+    return looser
+        ? randomNumber(5500, 7000)
+        : randomNumber(7000, 9000);
 }
