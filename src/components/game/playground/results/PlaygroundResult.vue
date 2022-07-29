@@ -1,10 +1,11 @@
 <script setup>
-import { computed, ref, useCssModule } from 'vue';
+import { computed, onMounted, ref, useCssModule } from 'vue';
 import PlaygroundResultPlayer from './player/PlaygroundResultPlayer.vue';
 import VButton from '@/components/common/button/VButton.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { startGame } from '@/services/playground/game';
 import { ellipseAddress } from '@/utils/address';
+import { updateBalance } from '@/services/web3/wallet/utils/getBalance';
 
 const props = defineProps({
     gameId: {
@@ -71,6 +72,8 @@ const getPlayerText = playerAddress => {
 
     return ellipseAddress(playerAddress);
 };
+
+onMounted(updateBalance);
 
 const restart = () => startGame(props.gameId, {
     onLoad: () => isLoadingRestart.value = true,
