@@ -1,5 +1,7 @@
 <script setup>
+import { reactive, ref } from 'vue';
 import GamesHistoryItem from './item/GamesHistoryItem.vue';
+import GameHistoryPopup from './popup/GameHistoryPopup.vue';
 import VSpin from '@/components/common/spin/VSpin.vue';
 
 defineProps({
@@ -9,6 +11,19 @@ defineProps({
     },
     loading: Boolean
 });
+
+const isResultsVisible = ref(false);
+const selectedResultsData = reactive({
+    txs: [],
+    winningAmount: 0
+});
+
+const openResults = (txs, winningAmount) => {
+    isResultsVisible.value = true;
+
+    selectedResultsData.txs = txs;
+    selectedResultsData.winningAmount = winningAmount;
+};
 </script>
 
 <template>
@@ -45,9 +60,13 @@ defineProps({
 
             <div v-else-if="games.length">
                 <GamesHistoryItem
-                    v-for="game in games"
-                    :key="game.id"
-                    v-bind="game"
+                    v-for="({ id, betAmount, winningAmount, txs, timestamp }) in games"
+                    :id="id"
+                    :key="id"
+                    :bet-amount="betAmount"
+                    :winning-amount="winningAmount"
+                    :timestamp="timestamp"
+                    @show-results="openResults(txs, winningAmount)"
                 />
             </div>
 
@@ -60,6 +79,12 @@ defineProps({
                 </div>
             </div>
         </div>
+
+        <GameHistoryPopup
+            v-model:visible="isResultsVisible"
+            :txs="selectedResultsData.txs"
+            :winning-amount="selectedResultsData.winningAmount"
+        />
 
     </div>
 </template>

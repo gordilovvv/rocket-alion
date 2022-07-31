@@ -25,6 +25,10 @@ const props = defineProps({
     }
 });
 
+const emit = defineEmits({
+    'show-results': null
+});
+
 const shortId = computed(() => {
     return ellipseAddress(props.id);
 });
@@ -42,7 +46,10 @@ const gameTime = computed(() => {
     <div :class="styles.game">
 
         <div :class="styles.id">
-            <div :class="styles.idWrap">
+            <div
+                :class="styles.idWrap"
+                @click="emit('show-results')"
+            >
                 <div :class="styles.idNumber">
                     {{ shortId }}
                 </div>

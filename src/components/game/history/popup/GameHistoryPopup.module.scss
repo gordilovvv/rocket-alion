@@ -1,0 +1,52 @@
+.list {
+    display: flex;
+    flex-flow: column;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-typo-base);
+    font-family: var(--font-family-text);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    padding: 20px 0;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: text;
+    border-bottom: 1px solid rgba(71, 47, 107, 0.4);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    @include hover {
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+
+    & + .item {
+        margin-top: 20px;
+    }
+
+    &:last-child {
+        border: 0;
+    }
+
+    &Tx {
+        white-space: nowrap;
+        flex-shrink: 1;
+    }
+
+    &Sum {
+        flex-shrink: 0;
+        white-space: nowrap;
+        color: var(--color-success);
+    }
+}
+
+@include max767 {
+    .item {
+        font-size: 14px;
+        line-height: 18px;
+    }
+}

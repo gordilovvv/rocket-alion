@@ -51,7 +51,7 @@ const BscTestnet = {
                 this.rpc
             ],
             blockExplorerUrls: [
-                'https://testnet.bscscan.com/'
+                'https://testnet.bscscan.com'
             ]
         };
     }
@@ -86,3 +86,7 @@ const { chainId, isConnected } = useWallet();
 export const chainError = computed(() => {
     return isConnected.value && ACTIVE_CHAIN_ID !== chainId.value;
 });
+
+export function createTxExplorerLink(hash) {
+    return `${ ACTIVE_CHAIN_DATA.blockExplorerUrls[0] }/tx/${ hash }`;
+}
