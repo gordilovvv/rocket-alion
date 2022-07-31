@@ -1,10 +1,12 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import RoomCard from '@/components/game/card/RoomCard.vue';
 import AppContainer from '@/components/general/container/AppContainer.vue';
 import GamesHistory from '@/components/game/history/GamesHistory.vue';
+import { useWallet } from '@/services/web3/wallet/useWallet';
 import { useRoomsStore } from '@/stores/rooms';
 import { useRecentWinnings } from '@/api/realtime/subscribers/winnings';
+import { getRooms } from '@/api/realtime/repositories/rooms';
 
 const roomsStore = useRoomsStore();
 
@@ -14,7 +16,15 @@ const rooms = computed(() => {
     );
 });
 
+const { address, isConnected } = useWallet();
 const { winnings, isLoading } = useRecentWinnings();
+
+// watch for address and connected. On change - update rooms data
+watch([address, isConnected], async ([ account, connected ]) => {
+    if (account && connected || !account && !connected) {
+        roomsStore.rooms = await getRooms();
+    }
+});
 </script>
 
 <template>
