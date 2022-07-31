@@ -61,6 +61,7 @@ watchEffect(() => ls.set(WALLET_STATE_LS, {
 export function useWalletState() {
     const resetState = () => {
         state.walletId = '';
+        state.chainId = 0;
         state.address = '';
         state.balance = 0;
         state.isConnected = false;
