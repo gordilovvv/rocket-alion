@@ -5,9 +5,15 @@ export function useSocketLoading() {
     const isLoading = ref(true);
 
     socket.on('connect', () => {
-        if (isLoading.value) {
-            isLoading.value = false;
-        }
+        isLoading.value = false;
+    });
+
+    socket.on('disconnect', () => {
+        isLoading.value = true;
+    });
+
+    socket.on('reconnect', () => {
+        isLoading.value = false;
     });
 
     return {

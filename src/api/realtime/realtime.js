@@ -8,17 +8,17 @@ export const socket = io(SOCKET_URL, {
     useNativeTimers: true
 });
 
-socket.on('connect', () => {
-    console.log('connect');
-});
+// socket.on('connect', () => {
+//     console.log('connect');
+// });
 
-socket.on('disconnect', () => {
-    console.log('disconnect');
-});
+// socket.on('disconnect', () => {
+//     console.log('disconnect');
+// });
 
-socket.on('reconnect', () => {
-    console.log('reconnect');
-});
+// socket.on('reconnect', () => {
+//     console.log('reconnect');
+// });
 
 function sendMessageToSocket(type, payload) {
     socket.emit(type, payload);
