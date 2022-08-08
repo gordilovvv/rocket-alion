@@ -40,14 +40,13 @@ const connectToWalletConnect = async () => {
         v-model="isWalletConnectionPopupOpened"
         title="Choose your wallet"
     >
-        <a
+        <WalletConnectButton
             v-if="isMobile()"
+            :wallet="METAMASK_ID"
             :href="getMetamaskDappUrl()"
         >
-            <WalletConnectButton :wallet="METAMASK_ID">
-                Metamask
-            </WalletConnectButton>
-        </a>
+            Metamask
+        </WalletConnectButton>
         <WalletConnectButton
             v-else-if="isSupported"
             :wallet="METAMASK_ID"

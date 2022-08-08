@@ -10,16 +10,26 @@ const props = defineProps({
             return [METAMASK_ID, WALLET_CONNECT_ID].includes(wallet);
         }
     },
+    href: {
+        type: String,
+        default: ''
+    },
     disabled: Boolean
-})
+});
 
 const emit = defineEmits({
     click: null
-})
+});
+
+const tag = computed(() => {
+    return props.href
+        ? 'a'
+        : 'button';
+});
 
 const icon = computed(() => {
     return `./images/wallets/${ props.wallet }.png`;
-})
+});
 
 const styles = useCssModule('styles');
 
@@ -27,12 +37,14 @@ const classes = computed(() => {
     return [styles.button, styles[props.wallet], {
         [styles.disabled]: props.disabled
     }];
-})
+});
 </script>
 
 <template>
-    <button
-        type="button"
+    <component
+        :is="tag"
+        :type="tag === 'button' ? 'button' : null"
+        :href="href ? href : null"
         :class="classes"
         @click="emit('click')"
     >
@@ -48,7 +60,7 @@ const classes = computed(() => {
             <slot />
         </span>
            
-    </button>
+    </component>
 </template>
 
 <style lang="scss" module="styles">
