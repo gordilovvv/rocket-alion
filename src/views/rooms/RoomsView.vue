@@ -25,15 +25,29 @@ watch([address, isConnected], async ([ account, connected ]) => {
         roomsStore.rooms = await getRooms();
     }
 });
+
+const canPlayInGame = roomId => {
+    const room = roomsStore.rooms[roomId];
+
+    if (room.paid)
+        return true;
+
+    if (rooms.value.filter(room => room.paid).length)
+        return false;
+
+    return true;
+};
 </script>
 
 <template>
     <AppContainer>
+
         <div :class="styles.rooms">
             <RoomCard
                 v-for="room in rooms"
                 :key="room.id"
                 v-bind="room"
+                :can-play="canPlayInGame(room.id)"
             />
         </div>
 

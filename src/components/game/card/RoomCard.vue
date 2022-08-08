@@ -30,7 +30,8 @@ const props = defineProps({
         type: Number,
         required: true
     },
-    best: Boolean
+    best: Boolean,
+    canPlay: Boolean
 });
 
 const styles = useCssModule('styles');
@@ -58,7 +59,7 @@ const isButtonLoading = computed(() => {
 });
 
 const isButtonDisabled = computed(() => {
-    return !isButtonLoading.value && gameStore.isGameStarting || chainError.value;
+    return !isButtonLoading.value && gameStore.isGameStarting || chainError.value || !props.canPlay;
 });
 
 const { isConnected } = useWallet();
