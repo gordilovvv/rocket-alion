@@ -6,6 +6,8 @@ import { logoutFromWallet } from './logout';
 
 import { WALLET_CONNECT_ID } from '../ids';
 import { WALLETS_PROVIDERS } from '../providers';
+import { isMobile } from '@/utils/mobile';
+import { connectMetamask } from '../wallets/metamask';
 
 // this function return provider based on wallet id
 function getProvider(walletId) {
@@ -23,6 +25,10 @@ function getProvider(walletId) {
 // this function uses in top of app for auto-connect
 export function walletAutoConnect() {
     const { walletId, isConnected } = useWalletState();
+
+    // if mobile in metamask app -> connect him
+    if (isMobile() && window.ethereum)
+        return connectMetamask();
 
     if (!isConnected.value)
         return;
