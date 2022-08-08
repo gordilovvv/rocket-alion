@@ -1,7 +1,8 @@
 import { io } from 'socket.io-client';
 import { getSocketId } from './id';
+import { SOCKET_URL } from '@/config';
 
-export const socket = io(import.meta.env.VITE_SOCKET_URL, {
+export const socket = io(SOCKET_URL, {
     query: `CID=${ getSocketId() }`,
     transports: ['websocket'],
     useNativeTimers: true

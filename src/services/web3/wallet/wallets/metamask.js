@@ -1,6 +1,5 @@
 import { connectWallet } from '../actions/connect';
 import { METAMASK_ID } from '../ids';
-import { addActiveChainRequest } from '../chain';
 
 const ethereum = window.ethereum;
 
@@ -17,11 +16,8 @@ export async function connectMetamask() {
         if (!account)
             throw new Error('Please login with metamask');
 
-        await addActiveChainRequest(provider);
-
         await connectWallet(ethereum, METAMASK_ID);
     } catch ({ message }) {
-        // TODO: notification
         console.error(message);
     }
 }

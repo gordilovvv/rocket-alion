@@ -1,7 +1,8 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { connectWallet } from '../actions/connect';
 import { WALLET_CONNECT_ID } from '../ids';
-import { ACTIVE_CHAIN_ID, ACTIVE_CHAIN_RPC } from '../chain';
+import { ACTIVE_CHAIN_ID, chainId } from '@/config';
+import { BSC_RPC_URLS, BSC_TESTNET_RPC_URLS } from '@/config/constants/rpc';
 
 let shouldForceModalOpen = false;
 
@@ -9,7 +10,8 @@ export const provider = new WalletConnectProvider({
     infuraId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID,
     chainId: ACTIVE_CHAIN_ID,
     rpc: {
-        [ACTIVE_CHAIN_ID]: ACTIVE_CHAIN_RPC,
+        [chainId.BSC]: BSC_RPC_URLS[0],
+        [chainId.BSC_TESTNET]: BSC_TESTNET_RPC_URLS[0]
     }
 });
 

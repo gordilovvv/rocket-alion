@@ -4,6 +4,7 @@ import VButton from '@/components/common/button/VButton.vue';
 import VIcon from '@/components/common/icon/VIcon.vue';
 import { useRouter } from 'vue-router';
 import { useWallet } from '@/services/web3/wallet/useWallet';
+import { chainError } from '@/services/web3/wallet/utils/chainError';
 import { useGameStore } from '@/stores/game';
 import { startGame } from '@/services/playground/game';
 import { formatCurrency } from '@/utils/currency';
@@ -57,7 +58,7 @@ const isButtonLoading = computed(() => {
 });
 
 const isButtonDisabled = computed(() => {
-    return !isButtonLoading.value && gameStore.isGameStarting;
+    return !isButtonLoading.value && gameStore.isGameStarting || chainError.value;
 });
 
 const { isConnected } = useWallet();

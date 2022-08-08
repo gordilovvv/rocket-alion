@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 import { useSocketLoading } from '@/api/realtime/useSocketLoading';
 import { LAYOUTS, DEFAULT_LAYOUT } from './layouts/layouts';
 import { walletAutoConnect } from './services/web3/wallet/actions/autoConnect';
-import { chainError } from './services/web3/wallet/chain';
+import { chainError } from '@/services/web3/wallet/utils/chainError';
 
 const vars = useCssModule('vars');
 

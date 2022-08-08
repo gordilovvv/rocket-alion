@@ -3,6 +3,7 @@ import { computed, onMounted, ref, useCssModule } from 'vue';
 import PlaygroundResultPlayer from './player/PlaygroundResultPlayer.vue';
 import VButton from '@/components/common/button/VButton.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
+import { chainError } from '@/services/web3/wallet/utils/chainError';
 import { startGame } from '@/services/playground/game';
 import { ellipseAddress } from '@/utils/address';
 import { updateBalance } from '@/services/web3/wallet/utils/getBalance';
@@ -121,6 +122,7 @@ const restart = () => startGame(props.gameId, {
                 <VButton
                     block
                     :loading="isLoadingRestart"
+                    :disabled="chainError"
                     @click="restart"
                 >
                     Restart

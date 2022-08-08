@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import AppPopup from '@/components/popup/AppPopup.vue';
 import { ellipseAddress } from '@/utils/address';
 import { formatCurrency } from '@/utils/currency';
-import { createTxExplorerLink } from '@/services/web3/wallet/chain';
+import { createTxExplorerLink } from '@/services/web3/wallet/utils/explorerLink';
 
 const props = defineProps({
     txs: {

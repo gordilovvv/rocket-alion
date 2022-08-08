@@ -1,10 +1,10 @@
 <script setup>
-import ChainIcon from '@/components/general/chain/ChainIcon.vue'
-import VIcon from '@/components/common/icon/VIcon.vue'
-import { ellipseAddress } from '@/utils/address'
-import { formatCurrency } from '@/utils/currency'
-import { useWallet } from '@/services/web3/wallet/useWallet'
-import { openWalletConnectionPopup } from '@/services/web3/wallet/popup/actions'
+import ChainIcon from '@/components/general/chain/ChainIcon.vue';
+import VIcon from '@/components/common/icon/VIcon.vue';
+import { ellipseAddress } from '@/utils/address';
+import { formatCurrency } from '@/utils/currency';
+import { useWallet } from '@/services/web3/wallet/useWallet';
+import { openWalletConnectionPopup } from '@/services/web3/wallet/popup/actions';
 
 const { address, balance, isConnected } = useWallet();
 </script>

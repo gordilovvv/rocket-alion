@@ -6,6 +6,7 @@ import { connectMetamask, isSupported } from '@/services/web3/wallet/wallets/met
 import { connectWalletConnect } from '@/services/web3/wallet/wallets/walletConnect';
 import { isWalletConnectionPopupOpened } from '@/services/web3/wallet/popup/state';
 import { METAMASK_ID, WALLET_CONNECT_ID } from '@/services/web3/wallet/ids';
+import { BASE_URL } from '@/config';
 import { isMobile } from '@/utils/mobile';
 
 const isMetamaskLoading = ref(false);
@@ -19,7 +20,7 @@ const connectToMetamask = async () => {
 };
 
 const getMetamaskDappUrl = () => {
-    const dappUrl = import.meta.env.VITE_BASE_URL.slice(8);
+    const dappUrl = BASE_URL.slice(8);
 
     return `https://metamask.app.link/dapp/${ dappUrl }`;
 };

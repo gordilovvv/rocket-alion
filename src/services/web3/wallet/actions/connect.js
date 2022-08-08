@@ -1,11 +1,23 @@
 import Web3 from 'web3';
 import { useWalletState } from '../useState';
+import { setupNetwork } from '../utils/setupNetwork';
 import { logoutFromWallet } from './logout';
 import { getBalance } from '../utils/getBalance';
 import { closeWalletConnectionPopup } from '../popup/actions';
 import { isWalletConnectionPopupOpened } from '../popup/state';
+import { ACTIVE_CHAIN_ID } from '@/config';
+import { useAlert } from '@/services/alert/useAlert';
 
 export async function connectWallet(provider, id) {
+    const { showAlert } = useAlert();
+    const hasSetup = setupNetwork(ACTIVE_CHAIN_ID, provider);
+
+    if (!hasSetup)
+        return showAlert({
+            view: 'danger',
+            text: 'Something was failed on connect. Please try again.'
+        });
+
     const {
         web3,
         walletId,
