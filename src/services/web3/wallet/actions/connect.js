@@ -52,14 +52,14 @@ export async function connectWallet(provider, id) {
     balance.value = ether;
     isConnected.value = true;
 
-    subscribeOnProviderEvents(provider, chainId);
+    subscribeOnProviderEvents(provider);
 
     if (isWalletConnectionPopupOpened) {
         closeWalletConnectionPopup();
     }
 }
 
-function subscribeOnProviderEvents(provider, chainId) {
+function subscribeOnProviderEvents(provider) {
     if (!provider.on)
         return;
 
@@ -80,7 +80,9 @@ function subscribeOnProviderEvents(provider, chainId) {
     });
 
     provider.on('chainChanged', async id => {
-        chainId.value = id;
+        const { chainId } = useWalletState();
+
+        chainId.value = parseInt(id);
         updateBalance();
     });
 }
