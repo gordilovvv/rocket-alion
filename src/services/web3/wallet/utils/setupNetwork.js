@@ -18,9 +18,7 @@ const NETWORK_CONFIG = {
  * Prompt the user to add BSC as a network on Metamask, or switch to BSC if the wallet is on a different network
  * @returns {boolean} true if the setup succeeded, false otherwise
 */
-export const setupNetwork = async (chainId, externalProvider) => {
-    const provider = externalProvider || window.ethereum;
-
+export async function setupNetwork(chainId, provider) {
     if (!NETWORK_CONFIG[chainId]) {
         console.error('Invalid chain id');
 
@@ -66,4 +64,4 @@ export const setupNetwork = async (chainId, externalProvider) => {
         console.error("Can't setup the BSC network on metamask because window.ethereum is undefined");
         return false;
     }
-};
+}

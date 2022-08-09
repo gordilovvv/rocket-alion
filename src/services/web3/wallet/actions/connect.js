@@ -5,18 +5,16 @@ import { logoutFromWallet } from './logout';
 import { getBalance } from '../utils/getBalance';
 import { closeWalletConnectionPopup } from '../popup/actions';
 import { isWalletConnectionPopupOpened } from '../popup/state';
-import { ACTIVE_CHAIN_ID } from '@/config';
+import { ACTIVE_CHAIN_ID, chainId } from '@/config';
 import { useAlert } from '@/services/alert/useAlert';
+
+const SUPPORTED_CHAINS = [
+    chainId.BSC,
+    chainId.BSC_TESTNET
+];
 
 export async function connectWallet(provider, id) {
     const { showAlert } = useAlert();
-    const hasSetup = setupNetwork(ACTIVE_CHAIN_ID, provider);
-
-    if (!hasSetup)
-        return showAlert({
-            view: 'danger',
-            text: 'Something was failed on connect. Please try again.'
-        });
 
     const {
         web3,
@@ -37,6 +35,16 @@ export async function connectWallet(provider, id) {
 
     const ether = await getBalance(account);
     const chain = await web3.value.eth.getChainId();
+
+    if (!SUPPORTED_CHAINS.includes(chain)) {
+        const hasSetup = await setupNetwork(ACTIVE_CHAIN_ID, provider);
+
+        if (!hasSetup)
+            return showAlert({
+                view: 'danger',
+                text: 'Something was failed on connect. Please try again.'
+            });
+    }
 
     walletId.value = id;
     chainId.value = chain;
