@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import { useWalletState } from '../useState';
 import { setupNetwork } from '../utils/setupNetwork';
 import { logoutFromWallet } from './logout';
-import { getBalance } from '../utils/getBalance';
+import { getBalance, updateBalance } from '../utils/getBalance';
 import { closeWalletConnectionPopup } from '../popup/actions';
 import { isWalletConnectionPopupOpened } from '../popup/state';
 import { ACTIVE_CHAIN_ID, chainId } from '@/config';
@@ -81,5 +81,6 @@ function subscribeOnProviderEvents(provider, chainId) {
 
     provider.on('chainChanged', async id => {
         chainId.value = id;
+        updateBalance();
     });
 }
