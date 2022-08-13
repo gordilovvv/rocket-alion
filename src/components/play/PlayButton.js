@@ -7,7 +7,7 @@ function PlayButton() {
     return h(
         VButton,
         {
-            link: config.appUrl,
+            href: config.appUrl,
             class: styles.button
         },
         () => ['play']
