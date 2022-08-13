@@ -1,6 +1,6 @@
 
-export const BASE_URL = 'https://app.swapservers.com';
-export const SOCKET_URL = 'https://api.swapservers.com';
+export const BASE_URL = 'https://app.rocketalion.com';
+export const SOCKET_URL = 'https://api.rocketalion.com';
 
 export const chainId = {
     BSC: 56,
