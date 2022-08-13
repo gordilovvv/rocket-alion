@@ -1,3 +1,3 @@
 export default {
-    appUrl: 'https://app.swapservers.com'
+    appUrl: 'https://app.rocketalion.com'
 };

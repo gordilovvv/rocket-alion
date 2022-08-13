@@ -1,6 +1,7 @@
 <script setup>
 import AppContainer from '../container/AppContainer.vue';
 import VButton from '../common/button/VButton.vue';
+import config from '@/config';
 // import scrollToElement from 'scroll-to-element';
 // import { onMounted, onUnmounted } from 'vue';
 
@@ -9,8 +10,6 @@ const menuLinks = [
     { text: 'Safety', section: '#safety' },
     { text: 'How to use', section: '#guide' },
 ];
-
-const appLink = 'https://app.swapservers.com';
 
 const scrollTo = section => {
     let node = document.querySelector(section);
@@ -75,7 +74,7 @@ const scrollTo = section => {
             </div>
 
             <VButton
-                :href="appLink"
+                :href="config.appUrl"
                 :class="styles.button"
             >
                 launch game
