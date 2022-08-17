@@ -10,16 +10,20 @@ export function sendTokens(amount, to, onSuccess, onError) {
         value: Web3.utils.toWei(amount.toString(), 'ether')
     };
 
-    const onSendTx = (error, hash) => {
-        if (error) {
-            onError(error);
-        } else {
-            onSuccess(hash);
-        }
+    let hash;
+
+    const onSendTx = (error, txHash) => {
+        if (error)
+            return onError(error);
+
+        hash = txHash;
     };
 
     web3.value.eth.sendTransaction(
         transaction,
         onSendTx
+    ).once(
+        'confirmation',
+        () => onSuccess(hash)
     );
 }
