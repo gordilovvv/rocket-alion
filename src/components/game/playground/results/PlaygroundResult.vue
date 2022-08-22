@@ -45,7 +45,7 @@ const isCurrentPlayerWinner = computed(() => {
         player => player.looser
     );
 
-    return looser?.address !== address.value;
+    return looser?.address.toLowerCase() !== address.value.toLowerCase();
 });
 
 const styles = useCssModule('styles');
@@ -64,7 +64,7 @@ const title = computed(() => {
 });
 
 const isCurrentPlayer = playerAddress => {
-    return playerAddress === address.value;
+    return playerAddress.toLowerCase() === address.value.toLowerCase();
 };
 
 const getPlayerText = playerAddress => {

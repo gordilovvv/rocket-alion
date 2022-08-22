@@ -15,13 +15,13 @@ const props = defineProps({
         default: null
     },
     loading: Boolean
-})
+});
 
 const { address } = useWallet();
 
 const isYou = computed(() => {
-    return address.value === props.address;
-})
+    return address.value.toLowerCase() === props.address.toLowerCase();
+});
 
 const text = computed(() => {
     if (props.loading)
@@ -30,13 +30,13 @@ const text = computed(() => {
     return isYou.value
         ? 'You'
         : ellipseAddress(props.address);
-})
+});
 
 const bet = computed(() => {
     return props.loading
         ? null
         : formatCurrency(props.bet);
-})
+});
 </script>
 
 <template>

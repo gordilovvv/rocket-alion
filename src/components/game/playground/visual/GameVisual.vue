@@ -33,6 +33,10 @@ const emit = defineEmits({
 
 const { address } = useWallet();
 
+const isCurrentPlayer = playerAddress => {
+    return playerAddress.toLowerCase() === address.value.toLowerCase();
+};
+
 const [rocketsFirstGroup, rocketsSecondGroup] = preparePlayersForRockets(
     props.players,
     address.value
@@ -125,7 +129,7 @@ watchEffect(async () => {
                     ref="rocketsRefs"
                     :num="num"
                     :address="playerAddress"
-                    :current-player="playerAddress === address"
+                    :current-player="isCurrentPlayer(playerAddress)"
                     :class="styles.rocket"
                     @after-appear="visibleRockets++"
                 />
@@ -138,7 +142,7 @@ watchEffect(async () => {
                     ref="rocketsRefs"
                     :num="num"
                     :address="playerAddress"
-                    :current-player="playerAddress === address"
+                    :current-player="isCurrentPlayer(playerAddress)"
                     :class="styles.rocket"
                     @after-appear="visibleRockets++"
                 />
