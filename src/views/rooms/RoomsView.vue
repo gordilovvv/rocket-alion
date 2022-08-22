@@ -6,7 +6,6 @@ import GamesHistory from '@/components/game/history/GamesHistory.vue';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { useRoomsStore } from '@/stores/rooms';
 import { useRecentWinnings } from '@/api/realtime/subscribers/winnings';
-import { getRooms } from '@/api/realtime/repositories/rooms';
 
 const roomsStore = useRoomsStore();
 
@@ -22,7 +21,7 @@ const { winnings, isLoading } = useRecentWinnings();
 // watch for address and connected. On change - update rooms data
 watch([address, isConnected], async ([ account, connected ]) => {
     if (account && connected || !account && !connected) {
-        roomsStore.rooms = await getRooms();
+        roomsStore.loadRooms();
     }
 });
 

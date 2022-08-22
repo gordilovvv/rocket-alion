@@ -3,7 +3,6 @@ import RoomsView from '@/views/rooms/RoomsView.vue';
 import { EMPTY_LAYOUT, GAME_LAYOUT } from '@/layouts/layouts';
 import { useWallet } from '@/services/web3/wallet/useWallet';
 import { useRoomsStore } from '@/stores/rooms';
-import { getRooms } from '@/api/realtime/repositories/rooms';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,7 +53,7 @@ router.beforeEach(async to => {
     const roomsStore = useRoomsStore();
 
     if (!roomsStore.rooms || to.path === '/') {
-        roomsStore.rooms = await getRooms();
+        await roomsStore.loadRooms();
     }
 
     if (connectRequired && !isConnected.value) {

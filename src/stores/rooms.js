@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { getRooms } from '@/api/realtime/repositories/rooms';
 
 export const useRoomsStore = defineStore('rooms', {
     state: () => ({
@@ -29,5 +30,10 @@ export const useRoomsStore = defineStore('rooms', {
         //         playersCapacity: 4 // TODO: add to backend
         //     }
         // }
-    })
+    }),
+    actions: {
+        async loadRooms() {
+            this.rooms = await getRooms();
+        }
+    }
 });

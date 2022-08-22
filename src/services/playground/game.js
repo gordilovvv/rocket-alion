@@ -32,6 +32,8 @@ export function startGame(id, {
         gamePayment.setError();
         gameStore.isGameStarting = false;
 
+        roomsStore.loadRooms();
+
         console.error(error);
     };
 
