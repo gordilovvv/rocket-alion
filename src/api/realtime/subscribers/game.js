@@ -120,5 +120,5 @@ export function payForGame({
         { baseURL: API_URL }
     )
         .then(() => onSuccessPay())
-        .catch((error) => onError(error?.response?.data?.error ?? error.message));
+        .catch((error) => onError(error?.response?.data?.message ?? error.message));
 }
