@@ -90,17 +90,18 @@ export function startGame(id, {
             if (txHash.value) {
                 stopHashWatcher();
 
-                payForGame(
-                    txHash.value,
-                    address.value,
-                    id
-                );
-
-                // timeout ???
-                setTimeout(() => {
-                    loadGame();
-                    updateBalance();
-                }, 4000); // TODO: do this on socket event
+                payForGame({
+                    txHash: txHash.value,
+                    playerAddress: address.value,
+                    gameType: id,
+                    onSuccessPay: () => {
+                        loadGame();
+                        updateBalance();
+                    },
+                    onError: error => {
+                        setErrorState(error);
+                    }
+                });
             }
         });
     } catch (error) {

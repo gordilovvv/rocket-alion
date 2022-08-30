@@ -1,5 +1,6 @@
 
 export const BASE_URL = 'https://app.rocketalion.com';
+export const API_URL = 'https://api.rocketalion.com'; // for pay endpoint
 export const SOCKET_URL = 'https://api.rocketalion.com';
 
 export const chainId = {

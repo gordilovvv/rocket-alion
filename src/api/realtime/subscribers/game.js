@@ -1,6 +1,8 @@
 import { ref } from "vue";
+import axios from 'axios';
 import { socket } from "../realtime";
 import { useGameStore } from "@/stores/game";
+import { API_URL } from "@/config";
 
 export const wasSubscribed = ref(false);
 
@@ -101,13 +103,22 @@ export function subscribeToGame({ playerAddress, gameType, onGameStart, onError 
     });
 }
 
-export function payForGame(txHash, playerAddress, gameType) {
-    socket.emit(
-        'pay',
+export function payForGame({
+    txHash,
+    playerAddress,
+    gameType,
+    onSuccessPay,
+    onError
+}) {
+    axios.post(
+        '/game/pay',
         {
             transaction: txHash,
             address: playerAddress,
             gameType
-        }
-    );
+        },
+        { baseURL: API_URL }
+    )
+        .then(() => onSuccessPay())
+        .catch((error) => onError(error?.response?.data?.error ?? error.message));
 }
