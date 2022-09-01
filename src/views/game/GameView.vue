@@ -12,7 +12,7 @@ export default {
         if (!game) {
             showAlert({
                 view: 'danger',
-                text: `You are not in the game!`
+                text: `You are not in the lobby or game was end!`
             });
 
             return '/';
@@ -40,6 +40,7 @@ const STAGE_RESULTS = 'results';
 
 const gameStore = useGameStore();
 const { rooms } = useRoomsStore();
+const { showAlert } = useAlert();
 const activeRoom = rooms[gameStore.game.id];
 
 watchEffect(() => {
@@ -47,7 +48,7 @@ watchEffect(() => {
         activeStage.value = STAGE_LOBBY;
     } else {
         if (gameStore.game.close) {
-            return showResults();
+            showResults();
         } else {
             activeStage.value = STAGE_VISUAL;
         }
@@ -90,6 +91,10 @@ const router = useRouter();
 const autoConnect = async () => autoConnectToGame(gameStore.game.id, () => {
     router.push('/');
     resetGameStorage();
+    showAlert({
+        view: 'danger',
+        text: `You are not in the lobby or game was end!`
+    });
 });
 
 const showResults = () => {
