@@ -12,4 +12,4 @@ export const BASE_BSC_SCAN_URLS = {
     [chainId.BSC_TESTNET]: 'https://testnet.bscscan.com',
 };
 
-export const ACTIVE_CHAIN_ID = chainId.BSC;
+export const ACTIVE_CHAIN_ID = chainId.BSC_TESTNET;
